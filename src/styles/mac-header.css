@@ -1,0 +1,102 @@
+@reference "./globals.css";
+
+/* ── Animación de brillo secuencial ── */
+@keyframes dotGlow {
+  0% {
+    opacity: 1;
+    box-shadow: 0 0 0 transparent;
+    transform: scale(1);
+  }
+  3% {
+    opacity: 1;
+    box-shadow: 0 0 4px 1px currentColor, 0 0 8px 3px currentColor;
+    transform: scale(1.15);
+  }
+  5% {
+    opacity: 1;
+    box-shadow: 0 0 8px 3px currentColor, 0 0 20px 6px currentColor;
+    transform: scale(1.35);
+  }
+  7% {
+    opacity: 1;
+    box-shadow: 0 0 6px 2px currentColor, 0 0 10px 3px currentColor;
+    transform: scale(1.15);
+  }
+  9% {
+    opacity: 0.7;
+    box-shadow: 0 0 0 transparent;
+    transform: scale(1);
+  }
+  11% {
+    opacity: 0.35;
+    box-shadow: 0 0 0 transparent;
+    transform: scale(1);
+  }
+  14% {
+    opacity: 0.7;
+    box-shadow: 0 0 0 transparent;
+    transform: scale(1);
+  }
+  18%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 0 transparent;
+    transform: scale(1);
+  }
+}
+
+@layer components {
+  .mac-header-bar {
+    @apply w-full bg-[#292C2E] px-6 py-4 flex items-center select-none relative;
+  }
+
+  .mac-header-dots {
+    @apply flex items-center gap-3;
+  }
+
+  .mac-header-dot-red {
+    @apply w-4 h-4 rounded-full bg-[#FF5457] text-[#FF5457];
+    animation: dotGlow 9s ease-in-out infinite;
+    animation-delay: 0s;
+  }
+
+  .mac-header-dot-yellow {
+    @apply w-4 h-4 rounded-full bg-[#FFC653] text-[#FFC653];
+    animation: dotGlow 9s ease-in-out infinite;
+    animation-delay: 1.5s;
+  }
+
+  .mac-header-dot-green {
+    @apply w-4 h-4 rounded-full bg-[#56E75D] text-[#56E75D];
+    animation: dotGlow 9s ease-in-out infinite;
+    animation-delay: 3s;
+  }
+
+  .mac-header-timer {
+    @apply flex-1 text-center text-[#F95616] font-mono text-sm tracking-wide;
+  }
+
+  .mac-header-btn {
+    @apply border border-white rounded-md px-4 py-2 font-mono text-sm
+           hover:text-gray-300 transition-colors no-underline;
+  }
+
+  .mac-header-btn-braces {
+    @apply text-[#F95616];
+  }
+
+  .mac-header-btn-text {
+    @apply text-brand-comment hover:text-[#FFFFFF];
+  }
+
+  /* ── Sombra degradada ── */
+  .mac-header-bar::after {
+    content: "";
+    position: absolute;
+    bottom: -15px;
+    left: 0;
+    width: 100%;
+    height: 24px;
+    background: linear-gradient(to bottom, rgba(41, 44, 46, 0.6), transparent);
+    pointer-events: none;
+  }
+}

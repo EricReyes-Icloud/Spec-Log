@@ -1,0 +1,194 @@
+@reference "./globals.css";
+
+/* ── Hover glow para dots de terminal ── */
+@keyframes dotHoverGlow {
+  0% {
+    box-shadow: 0 0 0 transparent;
+    transform: scale(1);
+  }
+  25% {
+    box-shadow: 0 0 6px 2px currentColor, 0 0 16px 5px currentColor;
+    transform: scale(1.3);
+  }
+  50% {
+    box-shadow: 0 0 10px 4px currentColor, 0 0 24px 8px currentColor;
+    transform: scale(1.2);
+  }
+  100% {
+    box-shadow: 0 0 0 transparent;
+    transform: scale(1);
+  }
+}
+
+/* ── Syntax highlighting colors ── */
+@layer components {
+  .syn-const {
+    color: #F98016;
+  }
+
+  .syn-comment {
+    color: #A3A3A3;
+  }
+
+  .syn-variable {
+    color: #00D4FF;
+  }
+
+  .syn-punctuation {
+    @apply text-white;
+  }
+
+  .syn-key {
+    @apply text-white;
+  }
+
+  .syn-string {
+    color: #56E75D;
+  }
+
+  .syn-boolean {
+    color: #F98016;
+  }
+
+  .syn-undefined {
+    color: #00D4FF;
+  }
+
+  /* ── Section ── */
+  .why-section {
+    @apply w-full bg-white px-18 py-16;
+  }
+
+  .why-split {
+    @apply flex flex-col lg:flex-row items-center;
+  }
+
+  /* ── Left column ── */
+  .why-left {
+    flex: 5;
+    min-width: 0;
+  }
+
+  .why-comment {
+    @apply text-brand-orange font-mono font-bold mb-8 select-none text-left;
+    font-size: 14px;
+  }
+
+  .why-heading {
+    @apply font-sans font-bold text-brand-carbon mb-8;
+    font-size: 42px;
+    line-height: 1.2;
+  }
+
+  .why-text {
+    @apply font-sans text-brand-carbon;
+    font-size: 20px;
+    line-height: 1.7;
+    margin-left: 25px;
+  }
+
+  .why-arrow-box {
+    @apply rounded-sm;
+    background: #f7f7f3;
+    padding: 10px;
+    padding-left: 20px;
+    max-width: 430px;
+    margin-top: 35px;
+    margin-left: 55px;
+  }
+
+  .why-arrow-item {
+    @apply flex items-center gap-3 font-semibold text-brand-carbon;
+    font-size: 18px;
+    line-height: 1.7;
+    font-family: ui-monospace, monospace;
+  }
+
+  .why-arrow {
+    @apply text-[#56E75D] font-bold;
+  }
+
+  .why-final {
+    @apply font-sans font-bold text-brand-carbon;
+    font-size: 42px;
+    line-height: 1.2;
+    text-align: center;
+    margin-top: 80px;
+  }
+
+  .why-orange {
+    @apply text-brand-orange;
+  }
+
+  .why-spacer {
+    @apply my-5;
+  }
+
+  /* ── Right column: Terminal ── */
+  .why-terminal {
+    @apply rounded-xl overflow-hidden;
+    flex: 4;
+    min-width: 0;
+    min-height: 350px;
+    background: #000;
+    box-shadow: 6px 8px 0px rgba(0, 0, 0, 0.12),
+                12px 16px 0px rgba(0, 0, 0, 0.06);
+    transition: box-shadow 0.25s ease, transform 0.25s ease;
+  }
+
+  .why-terminal:hover {
+    box-shadow: 8px 10px 0px rgba(0, 0, 0, 0.16),
+                16px 20px 0px rgba(0, 0, 0, 0.08);
+    transform: scale(1.02);
+  }
+
+  .why-terminal-header {
+    @apply flex items-center gap-2.5 px-5 py-3.5 select-none;
+    background: #2B2D30;
+  }
+
+  .why-terminal-dot {
+    @apply w-3.5 h-3.5 rounded-full cursor-pointer;
+    transition: transform 0.15s ease;
+  }
+
+  .why-terminal-dot:hover {
+    animation: dotHoverGlow 1.2s ease-out;
+  }
+
+  .why-terminal-dot-red {
+    @apply bg-[#FF5457] text-[#FF5457];
+  }
+
+  .why-terminal-dot-yellow {
+    @apply bg-[#FFC653] text-[#FFC653];
+  }
+
+  .why-terminal-dot-green {
+    @apply bg-[#56E75D] text-[#56E75D];
+  }
+
+  /* ── Terminal body with split panes ── */
+  .why-terminal-body {
+    @apply flex;
+    min-height: 340px;
+  }
+
+  .why-terminal-pane {
+    @apply p-5 font-mono text-sm leading-relaxed whitespace-pre;
+  }
+
+  .why-terminal-pane-left {
+    flex: 4;
+  }
+
+  .why-terminal-pane-right {
+    flex: 4;
+  }
+
+  .why-terminal-divider {
+    width: 1px;
+    background: #A3A3A3;
+    @apply flex-shrink-0;
+  }
+}

@@ -1,0 +1,48 @@
+@reference "./globals.css";
+
+@layer components {
+  /* ── Section ── */
+  .endlog-section {
+    @apply w-full px-18 py-20;
+    background: #FFE1A5;
+  } 
+
+  .endlog-comment {
+    @apply text-brand-orange font-mono font-bold mb-12 select-none text-center;
+    font-size: 15px;
+  }
+
+  .endlog-container {
+    @apply max-w-2xl mx-auto text-center;
+  }
+
+  .endlog-heading {
+    @apply font-sans font-bold text-brand-carbon mb-10;
+    font-size: 42px;
+    line-height: 1.3;
+  }
+
+  .endlog-text {
+    @apply font-sans text-brand-carbon leading-relaxed;
+    font-size: 22px;
+    line-height: 1.8;
+  }
+
+  .endlog-line {
+    margin-bottom: 4px;
+  }
+
+  .endlog-spacer {
+    height: 16px;
+  }
+
+  .endlog-highlight {
+    @apply font-bold;
+    font-size: 25px;
+  }
+
+  .endlog-btn {
+    @apply inline-block mt-10 px-8 py-3 bg-brand-orange text-brand-carbon font-bold rounded-md font-mono text-base
+           hover:bg-[#F98016] hover:cursor-pointer transition-colors no-underline;
+  }
+}

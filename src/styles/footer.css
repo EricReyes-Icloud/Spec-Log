@@ -1,0 +1,24 @@
+@reference "./globals.css";
+
+@layer components {
+  .footer {
+    @apply bg-brand-footer px-4 py-8 border-t border-gray-700;
+  }
+
+  .footer-container {
+    @apply max-w-4xl mx-auto flex flex-col items-center gap-4;
+  }
+
+  .footer-links {
+    @apply flex flex-col sm:flex-row gap-4;
+  }
+
+  .footer-link {
+    @apply border border-white rounded-md px-4 py-2 text-white font-mono text-sm
+           hover:text-gray-300 transition-colors;
+  }
+
+  .footer-comment {
+    @apply text-brand-comment font-mono text-sm;
+  }
+}

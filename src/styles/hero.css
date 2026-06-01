@@ -1,0 +1,104 @@
+@reference "./globals.css";
+
+@layer components {
+  .hero-section {
+    @apply w-full px-6 py-16 border-b border-gray-200;
+  }
+
+  .hero-container {
+    @apply max-w-6xl mx-auto flex flex-col md:flex-row gap-12 items-center;
+  }
+
+  /* ── Left column: form ── */
+  .hero-image-col {
+    @apply flex-1 w-full flex justify-center;
+  }
+
+  .hero-card {
+    @apply border border-gray-300 rounded-xl p-8 flex flex-col items-center gap-6 w-full max-w-[500px];
+  }
+
+  .hero-card-inner {
+    @apply flex flex-col items-center gap-5 w-full;
+  }
+
+  .hero-image-wrapper {
+    @apply w-48 h-48 md:w-70 md:h-45 shrink-0;
+  }
+
+  .hero-image {
+    @apply w-full h-full object-contain;
+  }
+
+  .hero-register-comment {
+    @apply text-brand-orange font-mono text-sm text-left select-none w-full;
+  }
+
+  .hero-form {
+    @apply w-full flex flex-col items-center gap-3;
+  }
+
+  .hero-input-wrapper {
+    @apply w-full;
+  }
+
+  .hero-input {
+    @apply w-full px-4 py-3 border border-gray-300 rounded-md font-mono text-brand-carbon
+           placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-orange;
+  }
+
+  .hero-btn {
+    @apply w-full px-6 py-3 bg-brand-orange text-brand-carbon font-bold rounded-md font-mono text-base
+           hover:bg-[#F98016] hover:cursor-pointer focus:outline-none focus:ring-2 focus:ring-brand-orange focus:ring-offset-2
+           disabled:opacity-60 disabled:cursor-not-allowed transition-colors;
+  }
+
+  .hero-error {
+    @apply w-full text-sm text-red-600 font-mono text-center;
+  }
+
+  .hero-success {
+    @apply w-full text-sm text-green-700 font-mono text-center;
+  }
+
+  /* ── Right column: description ── */
+  .hero-text-col {
+    @apply flex-1 flex flex-col gap-5;
+  }
+
+  .hero-comment-orange {
+    @apply font-mono text-sm text-brand-orange;
+  }
+
+  .hero-comment-gray {
+    @apply font-mono text-sm text-brand-comment;
+  }
+
+  .hero-title {
+    @apply text-[55px] font-bold leading-tight text-brand-carbon;
+  }
+
+  .hero-title-software {
+    @apply text-brand-orange;
+  }
+
+  .hero-desc-text {
+    @apply text-[20px] text-brand-carbon/80 leading-relaxed;
+  }
+
+  .hero-bullets {
+    @apply flex flex-col gap-2 mt-1;
+  }
+
+  .hero-bullet {
+    @apply flex items-start gap-2 font-mono text-[15px] leading-relaxed;
+  }
+
+  .hero-bullet-cross {
+    @apply text-red-500 font-bold shrink-0;
+  }
+
+  .hero-bullet-check {
+    @apply text-green-500 font-bold shrink-0;
+  }
+}

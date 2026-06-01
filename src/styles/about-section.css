@@ -1,0 +1,48 @@
+@reference "./globals.css";
+
+@layer components {
+  .about-section {
+    @apply w-full bg-[#292C2E];
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 80px 80px;
+  }
+
+  .about-container {
+    @apply items-center text-left;
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 48px;
+
+  }
+
+  .about-photo {
+    @apply w-32 h-32 md:w-40 md:h-40 rounded-full bg-gray-400 shrink-0;
+    width: 250px;
+    height: 250px;
+    box-shadow: 0 16px 40px -8px black;
+  }
+
+  .about-heading {
+    @apply text-3xl md:text-4xl font-bold mb-3;
+    font-size: 42px;
+    margin-bottom: 25px;
+  }
+
+  .about-name {
+    @apply text-brand-orange;
+  }
+
+  .about-comment {
+    @apply text-brand-orange font-mono mb-4 select-none text-left;
+    font-size: 14.5px;
+  }
+
+  .about-desc {
+    @apply text-base md:text-lg text-white/80 leading-relaxed;
+    margin-bottom: 10px;
+    font-size: 17px;
+  }
+}
