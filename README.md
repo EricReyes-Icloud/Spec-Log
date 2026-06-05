@@ -1,6 +1,14 @@
+<div align="center">
+
+<img src="./imgs/Miniatura oficial Spec Log.png" />
+
 ## Spec Log
 
+<p>
 Sistema editorial técnico orientado al envío de newsletters personalizadas, diseñado para documentar procesos reales de desarrollo, arquitectura de software y evolución profesional utilizando IA como copiloto bajo un enfoque de Spec-Driven Development.
+</p>
+
+</div>
 
 ---
 
@@ -42,7 +50,7 @@ Diseñar un sistema ligero y escalable para la creación y envío de newsletters
 - Resend
 
 #### Persistencia
-- Supabase
+- Firebase Firestore
 
 #### Hosting
 - Vercel
@@ -149,3 +157,9 @@ Actualmente se encuentra en fase de:
 - Diseño visual del sistema editorial
 - Construcción de componentes base
 - Integración del flujo de suscripción y envío de correos
+
+---
+
+## Autor
+
+Desarrollado por <strong>Eric Reyes</strong>.

@@ -6,7 +6,7 @@ const LOG_ENTRIES = [
     time: "5 min",
     title: "La IA tenía razón. Y eso me preocupó.",
     excerpt:
-      "Durante semanas pensé que conocía la respuesta correcta. La IA insistía en otra dirección. Al principio asumí que estaba equivocada. Después entendí que el problema no era la calidad de la respuesta. Era mi resistencia a cuestionar mis propias ideas.",
+      "Durante semanas pensé que conocía la respuesta correcta. La IA insistía en otra dirección. Al principio asumí que ella estaba equivocada. Después entendí que el problema no era la calidad de la respuesta. Era mi resistencia a cuestionar mis propias ideas.",
   },
   {
     id: "013",

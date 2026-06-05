@@ -80,7 +80,7 @@ Para el body de todos nuestros emails debemos tener los siguientes colores:
   |                                                        | 
   |                                   [ correo@email.com ] |  
   |                                                        | 
-  |                                   [ Unerme a Spec Log ]|  ← Boton del formulario
+  |                                   [ Unirme a Spec Log ]|  ← Boton del formulario
   |                                                        |   
   ├--------------------------------------------------------┤                                    
   │  <!----------------- Qué Recibiras ------------------> |  ← Sección “qué recibirás”
@@ -203,35 +203,170 @@ Comencé a escribir notas para no olvidar detalles importantes. Con el tiempo de
 ---------------------------------------------------------------------------------------------------
 ```
 
-## Ultima seccion:
+## Ultima seccion Terminal final
 
 ```
-┌────────────────────────────────────────────────────┐
+┌------------------------------------------------------------------------┐
+│                                                                        │
+│  ° ° °                                                                 │
+│------------------------------------------------------------------------│
+│                                                                        │
+│ spec-log:~$ █                                                          │ ← spec-log en verde
+│                                                                        │   : en blanco
+│                                                                        │   ~ azul claro grisaceo
+│                                                                        │   $ amarillo claro
+│                                                                        │   █ en blanco
+│                                                                        │
+│                                                                        │
+│                                                                        |
+|                                                                        |
+|                                                                        |
+|                                                                        |
+|                                                                        │
+└------------------------------------------------------------------------┘
 
-< !--- end.log --- >                                   → Comentario en naranja
+```
 
-             Gracias por leer hasta aquí.              → Heading color negro carbon establecido
+### Flujo de animación:
 
-      Si llegaste hasta este punto, probablemente
-      te interesa algo más que consumir contenido.     → Fondo bg-brand-yellow
+01. INICIO
 
-       Quizás te interesa construir cosas reales,
-    aprender de los errores y documentar el proceso.   → Texto alineado al centro
+```
+┌------------------------------------------------------------------------┐
+│                                                                        │
+│  ° ° °                                                                 │
+│------------------------------------------------------------------------│
+│                                                                        │
+│ spec-log:~$ █                                                          │
+│                                                                        │
+│                                                                        │
+│                                                                        │
+│                                                                        │
+│                                                                        │
+│                                                                        │
+│                                                                        |
+|                                                                        |
+|                                                                        |
+|                                                                        |
+|                                                                        │
+└------------------------------------------------------------------------┘
 
-      Eso es exactamente lo que encontrarás aquí.
+```
+02. Escribiendo...
 
-        Cada edición es una nota de campo.
+```
+┌------------------------------------------------------------------------┐
+│                                                                        │
+│  ° ° °                                                                 │
+│------------------------------------------------------------------------│
+│                                                                        │
+│ spec-log:~$ Gracias por llegar hasta aqui.█                            │ ← Tipografia
+│                                                                        │   monoespaciada en color
+│                                                                        │   blanco
+│                                                                        │
+│                                                                        │
+│                                                                        │
+│                                                                        │
+│                                                                        |
+|                                                                        |
+|                                                                        |
+|                                                                        |
+|                                                                        │
+└------------------------------------------------------------------------┘
 
-            Un registro de decisiones.
-                   De problemas.
-                  De aprendizajes.
+```
+03. Continua...
 
-                     Sin humo.
-              Sin promesas imposibles.
+```
+┌------------------------------------------------------------------------┐
+│                                                                        │
+│  ° ° °                                                                 │
+│------------------------------------------------------------------------│
+│                                                                        │
+│ spec-log:~$ Gracias por llegar hasta aqui.                             │ ← > debe ser en naranja 
+│ > Si llegaste hasta este punto,                                        │     principal
+│   probablemente te interesa algo más                                   │
+│   que acumular tutoriales.█                                            │
+│                                                                        │
+│                                                                        │
+│                                                                        │
+│                                                                        |
+|                                                                        |
+|                                                                        |
+|                                                                        |
+|                                                                        │
+└------------------------------------------------------------------------┘
 
-           Solo trabajo real documentado.
+```
+04. Casi termina...
 
-               [ ↳ Unirme a Spec Log ]                  → El mismo boton que el fomulario del HERO
+```
+┌------------------------------------------------------------------------┐
+│                                                                        │
+│  ° ° °                                                                 │
+│------------------------------------------------------------------------│
+│                                                                        │
+│ spec-log:~$ Gracias por llegar hasta aqui.                             │
+│ > Si llegaste hasta este punto,                                        │
+│   probablemente te interesa algo más                                   │
+│   que acumular tutoriales.                                             │
+│                                                                        │
+│ > Quizás te interesa construir,                                        │
+│   aprender y documentar el proceso.█                                   │
+│                                                                        |
+|                                                                        |
+|                                                                        |
+|                                                                        |
+|                                                                        │
+└------------------------------------------------------------------------┘
 
-└────────────────────────────────────────────────────┘
+```
+05. Mensaje completo...
+
+```
+┌------------------------------------------------------------------------┐
+│                                                                        │
+│  ° ° °                                                                 │
+│------------------------------------------------------------------------│
+│                                                                        │
+│ spec-log:~$ Gracias por llegar hasta aqui.                             │
+│ > Si llegaste hasta este punto,                                        │
+│   probablemente te interesa algo más                                   │
+│   que acumular tutoriales.                                             │
+│                                                                        │
+│ > Quizás te interesa construir,                                        │
+│   aprender y documentar el proceso.                                    │
+│                                                                        |
+| > Eso es exactamente lo que                                            |
+|   encontrarás en Spec Log. █                                           |
+|                                                                        |
+|                                                                        │
+└------------------------------------------------------------------------┘
+
+```
+06. Cita final...
+
+```
+┌------------------------------------------------------------------------┐
+│                                                                        │
+│  ° ° °                                                                 │
+│------------------------------------------------------------------------│
+│                                                                        │
+│ spec-log:~$ Gracias por llegar hasta aqui.                             │
+│ > Si llegaste hasta este punto,                                        │
+│   probablemente te interesa algo más                                   │
+│   que acumular tutoriales.                                             │
+│                                                                        │
+│ > Quizás te interesa construir,                                        │
+│   aprender y documentar el proceso.                                    │
+│                                                                        |
+| > Eso es exactamente lo que                                            |
+|   encontrarás en Spec Log.                                             |
+|                                                                        |
+| > Solo se trata de tomar una pequeña desición:                         | ← No colocamos el █ en
+|                                                                        │   esta ultima cita
+└------------------------------------------------------------------------┘
+
+                         [ ↑ Unirme a Spec Log  ]                          ← Mismo botón del Hero 
+                                                                             pero con ↑
 ```
