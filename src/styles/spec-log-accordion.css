@@ -1,0 +1,57 @@
+@reference "./globals.css";
+
+@layer components {
+  .accordion {
+    @apply w-full;
+    max-width: 70rem
+  }
+
+  .accordion-item {
+    @apply border-b border-gray-300 cursor-pointer py-4;
+  }
+
+  .accordion-header {
+    @apply flex items-center gap-3;
+  }
+
+  .accordion-chevron {
+    display: inline-block;
+    font-size: 28px;
+    line-height: 1;
+    transition: transform 0.3s ease;
+    transform: rotate(0deg);
+  }
+
+  .accordion-chevron.open {
+    transform: rotate(90deg);
+  }
+
+  .accordion-question {
+    @apply font-bold text-lg;
+    color: var(--color-brand-carbon);
+    font-size: 21px;
+  }
+
+  .accordion-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease;
+    cursor: text
+  }
+
+  .accordion-answer.open {
+    max-height: 500px;
+  }
+
+  .accordion-answer p {
+    margin-top: 15px;
+    margin-left: 40px;
+    font-size: 16.7px;
+    line-height: 1.6;
+    color: var(--color-brand-carbon);
+  }
+
+  .accordion-answer p:last-child {
+    margin-bottom: 12px;
+  }
+}

@@ -370,3 +370,59 @@ Comencé a escribir notas para no olvidar detalles importantes. Con el tiempo de
                          [ ↑ Unirme a Spec Log  ]                          ← Mismo botón del Hero 
                                                                              pero con ↑
 ```
+
+
+## Sección { } spec-log
+
+
+```
+┌------------------------------------------------------------------------┐
+│                                                                        │
+│  ° ° °                                                [ { } landing ]  │ → Este botón redirige
+│------------------------------------------------------------------------│   a la landing principal.
+│                                                                        │
+│                     Descubre todo sobre Spec Log                       │ → Heading color negro
+│                                                                        │   carbon ya establecido,
+│        [▾] ¿Qué es Spec Log                                            │   font-size: 55px,
+│            Spec Log es una newsletter editorial sobre desarrollo       │   centrado, Spec Log debe
+             de software, inteligencia artificial y construcción de      |   estar en naranja prin- productos.                                                  |   cipal.
+│                                                                        │   
+│        [▸] ¿Por qué nació?                                             │ → Las ▸ deben girarse 
+│        [▸] ¿De dónde surgió la idea?                                   │   hacia abajo ▾ cuando
+│        [▸] ¿Qué contenido comparte?                                    |   se haga click en ella
+|        [▸] ¿Cómo se creó?                                              |   o en el texto.
+|        [▸] ¿Quién debería leerlo?                                      |
+|        [▸] ¿Quién NO debería leerlo?                                   | → Las preguntas deben 
+|        [▸] ¿Por qué se llama Spec Log?                                 |   estar en negrita.
+|        [▸] ¿Cuál es el objetivo final?                                 |
+|                                                                        |
+|------------------------------------------------------------------------|
+|                                                                        |
+|  FOOTER                                                                | → Usamos el mismo footer
+|                                                                        │   de la landing.
+└------------------------------------------------------------------------┘
+
+```
+
+## Registro de usuarios
+
+```
+┌------------------------------------------------------------------------┐
+│                                                                        │
+│  ° ° °                                                                 │  
+│------------------------------------------------------------------------│   
+│                                                                        │
+│                                                                        │ 
+│                                                                        │  
+│                                                                        │   
+│                                                                        |
+│                                                                        │   
+│                                                                        |
+|                                                                        |
+|------------------------------------------------------------------------|
+|                                                                        |
+|  FOOTER                                                                |
+|                                                                        │   
+└------------------------------------------------------------------------┘
+
+```

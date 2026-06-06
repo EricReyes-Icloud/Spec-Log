@@ -1,0 +1,37 @@
+@reference "./globals.css";
+
+@layer components {
+  .spec-log-info-main {
+    @apply min-h-screen max-w-4xl mx-auto px-4 py-10 flex flex-col items-center relative;
+  }
+
+  .spec-log-info-back {
+    @apply self-start text-2xl mb-4 no-underline;
+    color: black;
+    transition: transform 0.2s ease;
+    position: absolute;
+    font-size: 1.5rem;
+    transition: transform 0.2s ease;
+    left: 150px;
+    top: 190px
+  }
+
+
+  .spec-log-info-back:hover {
+    transform: translateX(-3px);
+  }
+
+  .spec-log-info-comment {
+    @apply self-start font-mono text-sm mb-6;
+    color: var(--color-brand-orange);
+  }
+
+  .spec-log-info-heading {
+    @apply text-[45px] font-bold text-center mb-16 mt-7 leading-tight;
+    color: var(--color-brand-carbon);
+  }
+
+  .spec-log-info-heading-brand {
+    color: var(--color-brand-orange);
+  }
+}

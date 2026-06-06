@@ -36,7 +36,17 @@ function calcTimeLeft(target: Date) {
   };
 }
 
-export default function MacHeader() {
+interface MacHeaderProps {
+  showTimer?: boolean;
+  buttonHref?: string;
+  buttonText?: string;
+}
+
+export default function MacHeader({
+  showTimer = true,
+  buttonHref = "/spec-log-info",
+  buttonText = "spec-log",
+}: MacHeaderProps) {
   const [timeLeft, setTimeLeft] = useState<ReturnType<typeof calcTimeLeft> | null>(null);
 
   useEffect(() => {
@@ -59,21 +69,25 @@ export default function MacHeader() {
       </div>
 
       {/* Timer — se muestra solo en cliente para evitar hydration mismatch */}
-      <span className="mac-header-timer">
-        {timeLeft
-          ? `· próximo mail · (${pad(timeLeft.days)}-${pad(timeLeft.hours)}-${pad(timeLeft.minutes)}-${pad(timeLeft.seconds)})`
-          : "· próximo mail · (--:--:--:--)"}
-      </span>
+      {showTimer ? (
+        <span className="mac-header-timer">
+          {timeLeft
+            ? `· próximo mail · (${pad(timeLeft.days)}-${pad(timeLeft.hours)}-${pad(timeLeft.minutes)}-${pad(timeLeft.seconds)})`
+            : "· próximo mail · (--:--:--:--)"}
+        </span>
+      ) : (
+        <div className="flex-1" />
+      )}
 
       {/* Right button */}
       <a
-        href="https://github.com/ericreyes/spec-log"
-        target="_blank"
-        rel="noopener noreferrer"
+        href={buttonHref}
+        target={buttonHref.startsWith("http") ? "_blank" : undefined}
+        rel={buttonHref.startsWith("http") ? "noopener noreferrer" : undefined}
         className="mac-header-btn"
       >
         <span className="mac-header-btn-braces">{`{ }`}</span>{" "}
-        <span className="mac-header-btn-text">spec-log</span>
+        <span className="mac-header-btn-text">{buttonText}</span>
       </a>
     </header>
   );

@@ -1,8 +1,9 @@
+import Image from "next/image";
 import "@/styles/footer.css";
 
 const SOCIAL_LINKS = [
-  { label: "github.com/ericreyes", href: "https://github.com/ericreyes" },
-  { label: "linkedin.com/in/ericreyes", href: "https://linkedin.com/in/ericreyes" },
+  { label: "github.com/eric_reyes", href: "https://github.com/EricReyes-Icloud", icon: "/icono github.png" },
+  { label: "linkedin.com/in/eric_reyes", href: "https://www.linkedin.com/in/eric-reyes-b96418343/", icon: "/icono linkedin.png" },
 ];
 
 export default function Footer() {
@@ -19,7 +20,14 @@ export default function Footer() {
               title={link.label}
               className="footer-link"
             >
-              [{link.label}]
+              <Image
+                src={link.icon}
+                alt=""
+                width={20}
+                height={20}
+                className="footer-icon"
+              />
+              {link.label}
             </a>
           ))}
         </div>

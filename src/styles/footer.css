@@ -15,7 +15,12 @@
 
   .footer-link {
     @apply border border-white rounded-md px-4 py-2 text-white font-mono text-sm
-           hover:text-gray-300 transition-colors;
+           hover:text-gray-400 transition-colors
+           flex items-center gap-2;
+  }
+
+  .footer-icon {
+    @apply w-5 h-5 object-contain;
   }
 
   .footer-comment {
