@@ -4,36 +4,33 @@ Este archivo contiene instrucciones sobre el estilo y la identidad visual que co
 
 Algunas indicaciones a tener en cuenta:
 
-1. Hay imagenes llamadas como "Ejemplo" las cuales sirven para ver el estilo de la estructura visual general que deben tener los correos electronicos, no debemos copiar la base visual sino etenderla y luego con base a ello aplicar las isntrucciones posteriores.
-
-2. Hay tres imagenes ya realizadas las cuales se encuentran dentro de la carpeta `public`, las imagenes se llaman: "Header.png", "Logo.png" y "Miniatura.png".
+1. Hay tres imagenes ya realizadas las cuales se encuentran dentro de la carpeta `public`, las imagenes se llaman: "Header.png", "Logo.png" y "Miniatura.png".
 
 ## Instrucciones para la identidad visual:
 
-### HEADER (Tomar como referencia la imagen "Ejemplo 1")
+### HEADER
 
-- Barra estilo terminal Mac, tomar la imagen de la carpeta `public`.
-- Sin mascota, no la utilizaremos.
+- Barra estilo terminal Mac, con dots animados.
 
-### Los comentarios (Tomar como referencia la imagen "Ejemplo 2")
+### Los comentarios
 
-- La referencia maneja los comentarios o divisores del correo electornico como: // Historia
 - Nosotros manejaremos el estilo de los comentarios como HTML o JS visualmente hablando:
 
+```
     <!---------------------- Historia ------------------------>
     /*---------------------- Historia -----------------------*/
+```
 
-### El Bloque “REPLY” (Tomar como referencia la imagen "Ejemplo 3")
+### Bloque “REPLY”
 
-- La referencia tiene el siguiente bloque:
+- Crearemos un bloque como el siguiente para nuestra plantilla:
 ``` ↳ reply   cuéntame qué te gustaria leer aquí. ```
-- Dicho bloque tiene un fondo rosado y tipografia con color blanco.
 - Nuestro diseño de bloques debe tener lo siguiente:
-  - fondo naranja
-  - texto color negro carbon
+  - fondo naranja: #F95616
+  - texto color negro carbon: #1F1F1F
   - tipografía monoespaciada
 
-### FOOTER (Tomar como referencia la imagen "Ejemplo 3")
+### FOOTER
 
 - Nuestro footer debe incluir el siguiente comentario:
 
@@ -41,22 +38,22 @@ Algunas indicaciones a tener en cuenta:
 
 - Y debajo:
 
-    [ github.com/ericreyes ]
-    [ linkedin.com/in/ericreyes ]
+   (icono github.com) github.com/ericreyes
+   (icono linkedin.png) linkedin.com/in/ericreyes
 
 ## Paletas de colores
 
 Para el body de todos nuestros emails debemos tener los siguientes colores:
 
 - Texto principal: #1F1F1F
-- Comentarios: #E5E5E5
+- Comentarios: #A3A3A3
 - Identidad (reemplazo del rosa de referencia): #F95616
-- Header y Footer: #37302E
+- Header y Footer: #292C2E
 - Colores para los botones o circulos de la barra terminal: ° #FF5457 ° #FFC653 ° #56E75D
 
 ## Tipografia
 
-- Headings: sans serif gigante y bold
+- Headings: Inter gigante y bold
 - Comentarios: monospace
 - Inputs: monospace
 - Botones: monospace
@@ -96,11 +93,11 @@ Para el body de todos nuestros emails debemos tener los siguientes colores:
   |  -------------------------  -------------------------- │ 
   ├--------------------------------------------------------┤ 
   │                                                        | 
-  |   Contenedor redondo      Soy Eric Reyes (heading)     |  ← Seccion personal fondo #37302E
+  |   Contenedor redondo      Soy Eric Reyes (heading)     |  ← Seccion personal fondo #292C2E
   |   para mi foto             Desarrollador full-stack    | 
   |                            especializado en...         │ 
   ├--------------------------------------------------------┤ 
-  │░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░                   │   ← Footer: fondo oscuro (#37302E)
+  │░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░                   │   ← Footer: fondo oscuro (#292C2E)
   │░░░░░ [github.com/...] [linkedin] ░░░░                  │    links con borde blanco
   │░░░░░ /* Suscríbete a Spec Log...*/ ░░                  │    texto estilo comentario
   │░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░                   │ 
@@ -283,8 +280,8 @@ Comencé a escribir notas para no olvidar detalles importantes. Con el tiempo de
 │  ° ° °                                                                 │
 │------------------------------------------------------------------------│
 │                                                                        │
-│ spec-log:~$ Gracias por llegar hasta aqui.                             │ ← > debe ser en naranja 
-│ > Si llegaste hasta este punto,                                        │     principal
+│ spec-log:~$ Gracias por llegar hasta aqui.                             │← Simbolo ">" debe ser   
+│ > Si llegaste hasta este punto,                                        │  en naranja principal
 │   probablemente te interesa algo más                                   │
 │   que acumular tutoriales.█                                            │
 │                                                                        │
@@ -404,25 +401,31 @@ Comencé a escribir notas para no olvidar detalles importantes. Con el tiempo de
 
 ```
 
-## Registro de usuarios
+## PostRegistro de usuarios
 
 ```
-┌------------------------------------------------------------------------┐
-│                                                                        │
-│  ° ° °                                                                 │  
-│------------------------------------------------------------------------│   
-│                                                                        │
-│                                                                        │ 
-│                                                                        │  
-│                                                                        │   
-│                                                                        |
-│                                                                        │   
-│                                                                        |
-|                                                                        |
-|------------------------------------------------------------------------|
-|                                                                        |
-|  FOOTER                                                                |
-|                                                                        │   
-└------------------------------------------------------------------------┘
+┌-------------------------------------------------------------------------┐
+│                                                                         │
+│  ° ° °                                                                  │  
+│-------------------------------------------------------------------------│   
+│  spec-log://onboarding                                                  │ → Comentario en naranja
+│                                                                         │   principal
+│ ┌───────────────────────────────┐                                       |
+| │                               │  Acabas de entrar a Spec Log.         | → La tarjeta debe tener
+| │ STATUS: IN PROGRESS...        │                                       |   como color de fondo
+| │                               │  A partir de ahora recibirás          |   el mismo de dark ter-
+| │ [✓] Email verificado          |  registros reales de construcción,    |   minal
+| | [✓] Suscripción creada        |  decisiones técnicas, errores,        |
+| | [✓] Próxima edición programada|  aprendizajes y procesos documentados | → Status: in progress...
+| │                               │  mientras ocurren.                    |   debe cambiar cuando
+| │                               │                                       |   los tres checks ya 
+| └───────────────────────────────┘                                       │   esten completados
+|                                                                         |
+|                                                                         | 
+|-------------------------------------------------------------------------|
+|                                                                         |
+|  FOOTER                                                                 |
+|                                                                         │   
+└-------------------------------------------------------------------------┘
 
 ```
