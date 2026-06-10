@@ -39,14 +39,34 @@ export default function Hero() {
 
     setState((prev) => ({ ...prev, isSubmitting: true, error: undefined }));
 
-    // Simulated submission
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    // Submit to the subscription API
+    try {
+      const res = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: state.name.trim(), email: state.email.trim() }),
+      });
 
-    setState({ name: "", email: "", isSubmitting: false, success: true });
+      const data = await res.json();
 
-    setTimeout(() => {
-      setState((prev) => ({ ...prev, success: undefined }));
-    }, 4000);
+      if (res.ok && res.status === 201) {
+        window.location.href = data.redirectUrl;
+        return;
+      }
+
+      // 4xx / 5xx — show inline error
+      setState((prev) => ({
+        ...prev,
+        isSubmitting: false,
+        error: data.error ?? "Error inesperado. Intentalo de nuevo.",
+      }));
+    } catch {
+      setState((prev) => ({
+        ...prev,
+        isSubmitting: false,
+        error: "Error de conexión. Verificá tu internet e intentalo de nuevo.",
+      }));
+    }
   }
 
   return (
