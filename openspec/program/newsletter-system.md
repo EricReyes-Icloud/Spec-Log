@@ -130,4 +130,15 @@ Protegidas por middleware que checkea Firebase Auth + admin claim.
 
 ## Próximo Cambio
 
-`/sdd-new admin-auth` — Fase 1: Auth + ruteo protegido.
+`/sdd-new admin-editor` — Fase 2: Editor split pane + Markdown + preview.
+
+---
+
+## Estado de Fases
+
+| Fase | Estado | Change |
+|------|--------|--------|
+| Fase 1 | ✅ Completado | admin-auth |
+| Fase 2 | 🔲 Pendiente | — |
+| Fase 3 | 🔲 Pendiente | — |
+| Fase 4 | 🔲 Pendiente | — |
