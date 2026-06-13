@@ -1,0 +1,129 @@
+@reference "tailwindcss";
+
+.admin-login-page {
+  position: relative;
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  background-color: #1a1a1a;
+  overflow: hidden;
+}
+
+/* Blobs decorativos detrás del card para que el glassmorphism se vea */
+.admin-login-page::before,
+.admin-login-page::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  z-index: 0;
+}
+
+.admin-login-page::before {
+  width: 20rem;
+  height: 20rem;
+  background: radial-gradient(circle, rgba(249, 86, 22, 0.15) 0%, transparent 70%);
+  top: -5rem;
+  right: -5rem;
+}
+
+.admin-login-page::after {
+  width: 25rem;
+  height: 25rem;
+  background: radial-gradient(circle, rgba(249, 86, 22, 0.1) 0%, transparent 70%);
+  bottom: -8rem;
+  left: -8rem;
+}
+
+.admin-login-card {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 28rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  background: rgba(26, 26, 26, 0.4);
+  padding: 4.5rem 2rem;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.5),
+    inset 0 2px 0 rgba(255, 255, 255, 0.06);
+}
+
+.admin-login-title {
+  margin-bottom: 2rem;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #F95616;
+}
+
+.admin-login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.admin-login-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.admin-login-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #aaa;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.admin-login-input {
+  width: 100%;
+  border: none;
+  background-color: #d2d2d2;
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  color: #1a1a1a;
+  outline: none;
+  border-radius: 5px;
+}
+
+.admin-login-input::placeholder {
+  color: #1a1a1a;
+}
+
+.admin-login-input:focus {
+  outline: 2px solid #F95616;
+  outline-offset: 2px;
+}
+
+.admin-login-btn {
+  width: 100%;
+  border: none;
+  background-color: #F95616;
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.admin-login-btn:hover {
+  opacity: 0.9;
+}
+
+.admin-login-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.admin-login-error {
+  margin-top: 0.75rem;
+  text-align: center;
+  font-size: 0.8125rem;
+  color: #ff4444;
+}
