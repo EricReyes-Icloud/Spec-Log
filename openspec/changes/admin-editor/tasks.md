@@ -33,7 +33,10 @@ Chain strategy: size-exception
 ## Phase 3: Verification
 
 - [x] 3.1 Smoke test — run `next build` and confirm zero TypeScript/compilation errors
-- [ ] 3.2 Manual: navigate `/admin/editor`, verify split pane renders with glassmorphism, textarea + preview both visible, divider present
-- [ ] 3.3 Manual: type markdown in textarea, confirm preview updates in real-time; type `<coment>test</coment>` and `<heading>test</heading>`, verify transforms render correctly
-- [ ] 3.4 Manual: save a newsletter with title and markdown, confirm document appears in Firestore console with correct schema; save with empty title, confirm validation error blocks save
-- [ ] 3.5 Manual: navigate `/admin/editor/{id}` with a valid ID, confirm content loads; navigate with invalid ID, confirm error state
+- [x] 3.2 Manual: navigate `/admin/editor`, verify split pane renders with glassmorphism, textarea + preview both visible, divider present
+- [x] 3.3 Manual: type markdown in textarea, confirm preview updates in real-time; type `<coment>test</coment>` and `<heading>test</heading>`, verify transforms render correctly
+- [x] 3.4 Manual: save a newsletter with title and markdown, confirm document appears in Firestore console with correct schema; save with empty title, confirm validation error blocks save
+- [x] 3.5 Manual: navigate `/admin/editor/{id}` with a valid ID, confirm content loads; navigate with invalid ID, confirm error state
+- [x] 3.6 Fix markdown rendering in preview — `withLineBreaks()` replaced with `remark-breaks` plugin so block-level markdown syntax (headings, lists, HR) is recognized correctly while single `\n` still renders as `<br>` via AST-level soft break conversion
+- [x] 3.7 Fix `withLineBreaks()` oscillation (up/down cycle) — the old `\n\n` protection approach consumed double newlines as paragraph markers, so even numbers of consecutive Enter presses produced ZERO `<br>` while odd numbers produced ONE. Fixed by protecting only `\n` that precedes markdown block-level syntax (`\n(?=#{1,6}\s|[*+\-]\s|\d+\.\s|>\s|```|~~)`) instead of protecting `\n\n`. Every remaining `\n` converts to `<br>\n`, eliminating the oscillation while preserving block structure for ReactMarkdown.
+- [x] 3.8 **Replaced `remark-breaks` with string-level `withLineBreaks()`** — `remark-breaks` operates at the AST level after the parser has collapsed blank lines, so only 1-2 `\n` could become `<br>` regardless of how many times Enter was pressed. Fixed by re-implementing a protected `withLineBreaks()` that preserves `\n\n` boundaries (so `## headings`, `**bold**`, and block elements still parse correctly) while converting every remaining `\n` to `<br>\n` at the string level before markdown parsing. Removed `remark-breaks` dependency entirely.

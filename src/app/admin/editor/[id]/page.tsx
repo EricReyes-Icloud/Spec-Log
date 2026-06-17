@@ -4,7 +4,6 @@ import { useState, useEffect, useRef, useCallback, type ChangeEvent } from "reac
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { signOut } from "firebase/auth";
-import { preparseMarkdown } from "@/lib/markdown-preparser";
 import { getNewsletter, updateNewsletter, createNewsletter } from "@/lib/firebase-client";
 import { auth } from "@/lib/firebase-client";
 import type { Newsletter } from "@/lib/firebase-client";
@@ -75,9 +74,6 @@ export default function AdminEditNewsletterPage() {
       cancelled = true;
     };
   }, [id]);
-
-  // Pre-parsed content for preview
-  const previewContent = preparseMarkdown(markdown);
 
   const handleMarkdownChange = useCallback(
     (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -194,7 +190,7 @@ export default function AdminEditNewsletterPage() {
       </div>
       <div className="admin-editor-divider" />
       <div className="admin-editor-right">
-        <NewsletterPreview content={previewContent} />
+        <NewsletterPreview content={markdown} />
       </div>
     </div>
   );
