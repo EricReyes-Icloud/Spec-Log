@@ -4,7 +4,6 @@ import { useState, useRef, useCallback, type ChangeEvent } from "react";
 import { signOut } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { preparseMarkdown } from "@/lib/markdown-preparser";
 import { createNewsletter } from "@/lib/firebase-client";
 import { auth } from "@/lib/firebase-client";
 import NewsletterPreview from "@/components/email/NewsletterPreview";
@@ -19,9 +18,6 @@ export default function AdminNewEditorPage() {
   const [success, setSuccess] = useState(false);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  // Pre-parsed content for preview
-  const previewContent = preparseMarkdown(markdown);
 
   async function handleLogout() {
     if (isLoggingOut) return;
@@ -139,7 +135,7 @@ export default function AdminNewEditorPage() {
         <div className="admin-editor-divider" />
 
         <div className="admin-editor-right">
-          <NewsletterPreview content={previewContent} />
+          <NewsletterPreview content={markdown} />
         </div>
       </div>
 

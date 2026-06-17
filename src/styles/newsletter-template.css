@@ -32,26 +32,29 @@
 }
 
 .newsletter-template-dot--red {
-  background-color: #ff5f57;
+  background-color: #FF5457;
 }
 
 .newsletter-template-dot--yellow {
-  background-color: #ffbd2e;
+  background-color: #FFC653;
 }
 
 .newsletter-template-dot--green {
-  background-color: #28c840;
+  background-color: #56E75D;
 }
 
 /* ── Content area ── */
 .newsletter-template-content {
   flex: 1;
-  padding: 1.5rem 1.5rem 0.5rem;
+  padding: 1.5rem 2rem 1.5rem;
   color: #1f1f1f;
   font-size: 0.9375rem;
-  line-height: 1.7;
+  line-height: 1.5;
   overflow-wrap: break-word;
   word-break: break-word;
+  /* Line breaks are handled by withLineBreaks() at the string level
+     (converts every \n to <br>\n before markdown parsing), not via
+     CSS white-space. */
 }
 
 /* Markdown-rendered element styles inside the template */
@@ -65,10 +68,10 @@
 .newsletter-template-content h1,
 .newsletter-template-content h2,
 .newsletter-template-content h3 {
-  margin-top: 1.5rem;
+  margin-top: 1rem;
   margin-bottom: 0.75rem;
   font-weight: 700;
-  line-height: 1.3;
+  line-height: 1;
 }
 
 .newsletter-template-content h1 {
@@ -108,10 +111,9 @@
 
 /* Custom comment line — smaller, muted */
 .newsletter-template-content .coment-line {
-  display: block;
+  display: inline;
   font-size: 0.80rem;
   color: #9ca3af;
-  margin-bottom: 0.5rem;
 }
 
 /* Orange highlight — brand accent color */
@@ -120,13 +122,31 @@
   font-weight: 600;
 }
 
+/* ── Alignment wrappers — left/right/center ── */
+/* display: block on <span> is safe: parse5 uses tag names (not CSS) to
+   determine DOM structure. <span> is inherently inline in HTML spec, so it
+   stays inside <p> without auto-close. display: block makes it fill width
+   so text-align can actually distribute space. */
+.newsletter-template-content .align-left {
+  display: block;
+  text-align: left;
+}
+.newsletter-template-content .align-right {
+  display: block;
+  text-align: right;
+}
+.newsletter-template-content .align-center {
+  display: block;
+  text-align: center;
+}
+
 /* ── Tip / callout block ── */
 .newsletter-tip {
-  background: rgba(0, 0, 0, 0.199);
+  background: #f97416;
   border-radius: 8px;
   padding: 1rem 1.25rem;
   margin-bottom: 1rem;
-  color: #333;
+  color: #1F1F1F;
 }
 
 .newsletter-tip p {
@@ -135,6 +155,11 @@
 
 .newsletter-tip p + p {
   margin-top: 0.75rem;
+}
+
+.newsletter-tip:hover{
+  cursor: pointer;
+  background: #f98b16;
 }
 
 /* ── CTA / code block ── */
@@ -158,7 +183,7 @@
 .newsletter-template-footer {
   flex-shrink: 0;
   padding: 1rem 1.5rem 1.5rem;
-  display: flex;
+  display: flex; 
   flex-direction: column;
   align-items: center;
   gap: 0.75rem;
