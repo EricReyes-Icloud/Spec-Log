@@ -84,15 +84,10 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    // 8. Return response
+    // 8. Return response — generic error on failure, details logged server-side only
     if (result.failedCount > 0) {
       return NextResponse.json(
-        {
-          success: false,
-          sentCount: result.sentCount,
-          failedCount: result.failedCount,
-          error: "Algunos envíos fallaron",
-        },
+        { error: "Error interno del servidor" },
         { status: 500 },
       );
     }

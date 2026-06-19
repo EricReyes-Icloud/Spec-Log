@@ -91,7 +91,8 @@ export default function WeeklyNewsletter({
   htmlContent,
   unsubscribeToken,
 }: WeeklyNewsletterProps) {
-  const unsubscribeUrl = `{{UNSUBSCRIBE_URL}}`;
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+  const unsubscribeUrl = `${baseUrl}/unsubscribe?token=${unsubscribeToken}`;
 
   return (
     <Html>

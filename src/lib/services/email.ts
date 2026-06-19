@@ -55,14 +55,20 @@ export async function sendNewsletter(
         }),
       );
 
-      await resend.emails.send({
+      const { error: sendError } = await resend.emails.send({
         from: process.env.RESEND_FROM_EMAIL!,
         to: subscriber.email,
         subject: newsletterTitle,
         html: emailHtml,
       });
 
+      if (sendError) {
+        throw new Error(sendError.message ?? "Resend error");
+      }
+
       sentCount++;
+
+      console.info(`[email] Sent to ${subscriber.email} (${sentCount}/${subscribers.length})`);
 
       // Update subscriber record
       await db.collection("subscribers").doc(subscriber.email).update({
@@ -78,6 +84,10 @@ export async function sendNewsletter(
     // Rate limiting: 150ms between sends (~6-7 req/s, well within Resend free tier)
     await new Promise((r) => setTimeout(r, 150));
   }
+
+  console.info(
+    `[email] Summary: sent=${sentCount}, failed=${failedCount}, total=${subscribers.length}`,
+  );
 
   return { sentCount, failedCount, failedEmails };
 }
