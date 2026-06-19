@@ -17,6 +17,10 @@ export default function AdminNewEditorPage() {
   const [error, setError] = useState<string | undefined>();
   const [success, setSuccess] = useState(false);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [sendError, setSendError] = useState<string | undefined>();
+  const [sendSuccess, setSendSuccess] = useState(false);
+  const [newsletterId, setNewsletterId] = useState<string | null>(null);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   async function handleLogout() {
@@ -68,7 +72,8 @@ export default function AdminNewEditorPage() {
     setSuccess(false);
 
     try {
-      await createNewsletter(title.trim(), markdown);
+      const id = await createNewsletter(title.trim(), markdown);
+      setNewsletterId(id);
       setSuccess(true);
     } catch (err) {
       const message =
@@ -78,6 +83,38 @@ export default function AdminNewEditorPage() {
       setSaving(false);
     }
   }, [title, markdown]);
+
+  const handlePublish = useCallback(async () => {
+    setSending(true);
+    setSendError(undefined);
+    setSendSuccess(false);
+
+    try {
+      // If newsletter hasn't been saved yet, save it first
+      let id = newsletterId;
+      if (!id) {
+        id = await createNewsletter(title.trim(), markdown);
+        setNewsletterId(id);
+      }
+
+      const res = await fetch("/api/newsletter/send", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ newsletterId: id }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error ?? "Error al enviar");
+      }
+
+      setSendSuccess(true);
+    } catch (err) {
+      setSendError(err instanceof Error ? err.message : "Error al enviar");
+    } finally {
+      setSending(false);
+    }
+  }, [title, markdown, newsletterId]);
 
   return (
     <main className="admin-editor-page">
@@ -139,11 +176,25 @@ export default function AdminNewEditorPage() {
         </div>
       </div>
 
-      {/* Publish button (disabled for now) */}
+      {/* Publish bar */}
       <div className="admin-editor-publish-bar">
-        <button disabled className="admin-editor-publish-btn">
-          Publicar
+        <button
+          onClick={handlePublish}
+          disabled={sending}
+          className="admin-editor-publish-btn"
+        >
+          {sending ? "Enviando..." : "Publicar"}
         </button>
+        {sendSuccess && (
+          <span className="admin-editor-success" style={{ marginLeft: "1rem" }}>
+            ¡Enviado!
+          </span>
+        )}
+        {sendError && (
+          <span className="admin-editor-error" style={{ marginLeft: "1rem" }}>
+            {sendError}
+          </span>
+        )}
       </div>
     </main>
   );
