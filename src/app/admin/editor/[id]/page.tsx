@@ -28,6 +28,9 @@ export default function AdminEditNewsletterPage() {
   const [success, setSuccess] = useState(false);
   const [pageState, setPageState] = useState<PageState>({ status: "loading" });
   const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [sendError, setSendError] = useState<string | undefined>();
+  const [sendSuccess, setSendSuccess] = useState(false);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   async function handleLogout() {
@@ -126,6 +129,31 @@ export default function AdminEditNewsletterPage() {
     }
   }, [title, markdown, id, pageState.status]);
 
+  const handlePublish = useCallback(async () => {
+    setSending(true);
+    setSendError(undefined);
+    setSendSuccess(false);
+
+    try {
+      const res = await fetch("/api/newsletter/send", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ newsletterId: id }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error ?? "Error al enviar");
+      }
+
+      setSendSuccess(true);
+    } catch (err) {
+      setSendError(err instanceof Error ? err.message : "Error al enviar");
+    } finally {
+      setSending(false);
+    }
+  }, [id]);
+
   // ── Shared: top bar (logout + back) ──
   const topBar = (
     <div className="admin-editor-top-bar">
@@ -145,9 +173,23 @@ export default function AdminEditNewsletterPage() {
   // ── Shared: publish button ──
   const publishBar = (
     <div className="admin-editor-publish-bar">
-      <button disabled className="admin-editor-publish-btn">
-        Publicar
+      <button
+        onClick={handlePublish}
+        disabled={sending}
+        className="admin-editor-publish-btn"
+      >
+        {sending ? "Enviando..." : "Publicar"}
       </button>
+      {sendSuccess && (
+        <span className="admin-editor-success" style={{ marginLeft: "1rem" }}>
+          ¡Enviado!
+        </span>
+      )}
+      {sendError && (
+        <span className="admin-editor-error" style={{ marginLeft: "1rem" }}>
+          {sendError}
+        </span>
+      )}
     </div>
   );
 
