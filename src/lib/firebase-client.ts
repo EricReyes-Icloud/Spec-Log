@@ -70,6 +70,7 @@ export interface Newsletter {
   status: "draft" | "scheduled" | "sent";
   createdAt: Timestamp;
   updatedAt: Timestamp;
+  sentAt: Timestamp | null;
 }
 
 // ── Newsletter Persistence ──
@@ -145,7 +146,28 @@ export async function getNewsletter(id: string): Promise<Newsletter | null> {
     status: data.status,
     createdAt: data.createdAt,
     updatedAt: data.updatedAt,
+    sentAt: data.sentAt ?? null,
   } as Newsletter;
+}
+
+/**
+ * Mark a newsletter as sent in Firestore (client-side).
+ * Sets status to "sent" and records the timestamp.
+ * Throws if the document does not exist.
+ */
+export async function markNewsletterAsSent(id: string): Promise<void> {
+  const db = getClientFirestore();
+  const docRef = doc(db, NEWSLETTERS_COLLECTION, id);
+
+  const snapshot = await getDoc(docRef);
+  if (!snapshot.exists()) {
+    throw new Error("Document not found");
+  }
+
+  await updateDoc(docRef, {
+    status: "sent",
+    sentAt: Timestamp.now(),
+  });
 }
 
 // Only export `auth` for use in browser components
