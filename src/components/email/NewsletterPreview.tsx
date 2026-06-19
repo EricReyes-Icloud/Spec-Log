@@ -3,51 +3,8 @@
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import Image from "next/image";
-import { preparseMarkdown } from "@/lib/markdown-preparser";
+import { preparseMarkdown, withLineBreaks } from "@/lib/markdown-preparser";
 import "@/styles/newsletter-template.css";
-
-/**
- * withLineBreaks — converts every \n to <br>\n at the STRING level
- * BEFORE markdown parsing, so that ALL Enter presses (not just the first 2)
- * produce visible line breaks in the final HTML.
- *
- * Why protecting \n\n (double newline) didn't work:
- *   The old approach replaced \n\n → sentinel → <br>\n → \n\n. This caused
- *   oscillation: \n\n was consumed as a paragraph marker, so even numbers of
- *   consecutive Enter presses produced ZERO <br> while odd numbers produced
- *   exactly ONE. The user saw: down, up, down, up.
- *
- * The fix: protect ONLY \n that appears before markdown block-level syntax
- * (headings, lists, blockquotes, code fences). Block elements in markdown
- * need \n\n (a blank line) BEFORE them to be recognized as block syntax.
- * By protecting only those \n, we preserve block structure while converting
- * every other \n to <br>\n.
- *
- *   1. Protect \n before block syntax (headings, lists, quotes, code fences)
- *   2. Replace ALL remaining \n with <br>\n
- *   3. Restore block markers back to \n
- *
- * This eliminates the oscillation: every Enter press produces a <br> unless
- * it precedes a block-level element, in which case the blank line is preserved.
- *
- * Why \n+ (consecutive newlines as a group):
- *   Converting every \n individually to <br>\n puts <br> at the START of a
- *   new line when there are consecutive newlines. In CommonMark, <br> at the
- *   start of a line triggers an HTML block (type 7), which causes ALL inline
- *   markdown syntax (**bold**, *italic*, etc.) to be treated as raw text.
- *   By matching \n+ as a group and emitting <br> repeated N times followed
- *   by a single \n, every <br> stays at the END of its line — never at the
- *   start of a new line — so HTML blocks are never formed.
- */
-function withLineBreaks(input: string): string {
-  return input
-    // Protect \n before markdown block elements (headings, lists, blockquotes, code fences)
-    .replace(/\n(?=#{1,6}\s|[*+\-]\s|\d+\.\s|>\s|```|~~)/g, "\x00BLOCK\x00")
-    // Convert ALL remaining \n to <br>\n — group consecutive \n so <br> never lands at line start
-    .replace(/\n+/g, (match) => "<br>".repeat(match.length) + "\n")
-    // Restore block markers back to \n
-    .replace(/\x00BLOCK\x00/g, "\n");
-}
 
 export interface NewsletterPreviewProps {
   content: string;
