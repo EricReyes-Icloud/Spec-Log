@@ -1,4 +1,8 @@
 import { withLineBreaks, preparseMarkdown } from "@/lib/markdown-preparser";
+import { unified } from "unified";
+import remarkParse from "remark-parse";
+import remarkRehype from "remark-rehype";
+import rehypeStringify from "rehype-stringify";
 import { getDb } from "@/lib/firebase-admin";
 import { Timestamp, FieldValue } from "firebase-admin/firestore";
 import { Resend } from "resend";
@@ -36,8 +40,21 @@ export async function sendNewsletter(
     return { sentCount: 0, failedCount: 0, failedEmails: [] };
   }
 
-  // Process markdown the same way as the editor preview
-  const processedHtml = preparseMarkdown(withLineBreaks(markdownContent));
+  // 1) withLineBreaks — convert \n to <br>\n at the string level
+  const withBreaks = withLineBreaks(markdownContent);
+  // 2) preparseMarkdown — transform custom tags (<coment>, <orange>, etc.)
+  //    into standard HTML elements (<span>, <div>, <pre>) FIRST, so the
+  //    markdown parser recognizes them as valid HTML rather than plain text.
+  const withCustomTags = preparseMarkdown(withBreaks);
+  // 3) unified pipeline — convert markdown syntax (**bold**, ## h) to HTML,
+  //    preserving HTML elements (spans from preparseMarkdown, native <br>)
+  //    via allowDangerousHtml on BOTH remark-rehype AND rehype-stringify.
+  const processedHtml = unified()
+    .use(remarkParse)
+    .use(remarkRehype, { allowDangerousHtml: true })
+    .use(rehypeStringify, { allowDangerousHtml: true })
+    .processSync(withCustomTags)
+    .toString();
 
   const resend = new Resend(process.env.RESEND_API_KEY);
   const db = getDb();

@@ -17,6 +17,11 @@ interface WeeklyNewsletterProps {
   unsubscribeToken: string;
 }
 
+const SOCIAL_LINKS = [
+  { label: "github.com/eric_reyes", href: "https://github.com/EricReyes-Icloud", icon: "/icono github.png" },
+  { label: "linkedin.com/in/eric_reyes", href: "https://www.linkedin.com/in/eric-reyes-b96418343/", icon: "/icono linkedin.png" },
+];
+
 const main: CSSProperties = {
   backgroundColor: "#f0f0f0",
   fontFamily: "Arial, Helvetica, sans-serif",
@@ -32,7 +37,7 @@ const container: CSSProperties = {
 };
 
 const headerSection: CSSProperties = {
-  backgroundColor: "#2d2d2d",
+  backgroundColor: "#292C2E",
   padding: "12px 24px",
 };
 
@@ -40,7 +45,7 @@ const circleCell: CSSProperties = {
   width: "12px",
   height: "12px",
   borderRadius: "50%",
-  display: "inline-block",
+  display: "inline-block", 
 };
 
 const contentSection: CSSProperties = {
@@ -49,7 +54,7 @@ const contentSection: CSSProperties = {
 };
 
 const contentCell: CSSProperties = {
-  padding: "2rem",
+  padding: "1.5rem 2rem",
   color: "#1F1F1F",
   fontFamily: "Arial, Helvetica, sans-serif",
   fontSize: "16px",
@@ -57,20 +62,26 @@ const contentCell: CSSProperties = {
 };
 
 const footerSection: CSSProperties = {
-  backgroundColor: "#ffffff",
-  padding: "0 2rem 2rem",
+  backgroundColor: "#292C2E",
+  padding: "1rem 1.5rem 1.5rem",
 };
 
-const footerLinks: CSSProperties = {
-  fontSize: "14px",
-  color: "#555555",
-};
-
-const footerLink: CSSProperties = {
-  color: "#F95616",
+const footerPillLink: CSSProperties = {
+  display: "inline-block",
+  borderRadius: "6px",
+  padding: "6px 12px",
+  fontFamily: "Courier New, monospace",
+  fontSize: "11px",
+  color: "#ffffff",
   textDecoration: "none",
-  fontSize: "14px",
-  marginRight: "1.5rem",
+  marginRight: "12px",
+};
+
+const footerPillIcon: CSSProperties = {
+  width: 14,
+  height: 14,
+  verticalAlign: "middle",
+  marginRight: "6px",
 };
 
 const commentLine: CSSProperties = {
@@ -96,7 +107,28 @@ export default function WeeklyNewsletter({
 
   return (
     <Html>
-      <Head />
+      <Head>
+        <style>{`
+          .coment-line { display:inline; font-size:0.80rem; color:#9ca3af; font-family:'Courier New',monospace; }
+          .newsletter-orange { color:#F95616; font-weight:600; }
+          .align-left { display:block; text-align:left; }
+          .align-right { display:block; text-align:right; }
+          .align-center { display:block; text-align:center; }
+          .newsletter-tip { background:#f97416; border-radius:8px; padding:1rem 1.25rem; margin-bottom:1rem; color:#1F1F1F; }
+          .newsletter-tip p { margin-bottom:0; }
+          .newsletter-cta { background:#292C2E; border-radius:10px; padding:1rem 1.25rem; margin-bottom:1rem; }
+          .newsletter-cta code { color:#e0e0e0; font-family:'Courier New',monospace; font-size:0.8125rem; line-height:1.6; white-space:pre-wrap; }
+          .content-area h1, .content-area h2, .content-area h3 { margin-top:1rem; margin-bottom:0.75rem; font-weight:700; }
+          .content-area h1 { font-size:1.5rem; }
+          .content-area h2 { font-size:1.25rem; }
+          .content-area h3 { font-size:1.125rem; }
+          .content-area p { margin-bottom:1rem; }
+          .content-area ul, .content-area ol { margin-bottom:1rem; padding-left:1.5rem; }
+          .content-area li { margin-bottom:0.25rem; }
+          .content-area strong { font-weight:700; }
+          .content-area a { color:#F95616; text-decoration:underline; }
+        `}</style>
+      </Head>
       <Preview>Spec Log Newsletter</Preview>
       <Body style={main}>
         <Container style={container}>
@@ -118,7 +150,7 @@ export default function WeeklyNewsletter({
                       <td
                         style={{
                           ...circleCell,
-                          backgroundColor: "#ff5f57",
+                          backgroundColor: "#FF5457",
                         }}
                       />
                     </tr>
@@ -134,7 +166,7 @@ export default function WeeklyNewsletter({
                       <td
                         style={{
                           ...circleCell,
-                          backgroundColor: "#ffbd2e",
+                          backgroundColor: "#FFC653",
                         }}
                       />
                     </tr>
@@ -150,7 +182,7 @@ export default function WeeklyNewsletter({
                       <td
                         style={{
                           ...circleCell,
-                          backgroundColor: "#28c840",
+                          backgroundColor: "#56E75D",
                         }}
                       />
                     </tr>
@@ -169,9 +201,11 @@ export default function WeeklyNewsletter({
             >
               <tr>
                 <td style={contentCell}>
-                  <div
-                    dangerouslySetInnerHTML={{ __html: htmlContent }}
-                  />
+                  <div className="content-area">
+                    <div
+                      dangerouslySetInnerHTML={{ __html: htmlContent }}
+                    />
+                  </div>
                 </td>
               </tr>
             </table>
@@ -192,19 +226,23 @@ export default function WeeklyNewsletter({
               style={{ width: "100%", borderCollapse: "collapse" }}
             >
               <tr>
-                <td style={footerLinks}>
-                  <Link
-                    href="https://github.com/EricReyes-Icloud"
-                    style={footerLink}
-                  >
-                    GitHub
-                  </Link>
-                  <Link
-                    href="https://www.linkedin.com/in/eric-reyes-b96418343/"
-                    style={footerLink}
-                  >
-                    LinkedIn
-                  </Link>
+                <td align="center">
+                  {SOCIAL_LINKS.map((link) => (
+                    <Link
+                      key={link.label}
+                      href={link.href}
+                      style={footerPillLink}
+                    >
+                      <Img
+                        src={`${baseUrl}${encodeURI(link.icon)}`}
+                        alt=""
+                        width="14"
+                        height="14"
+                        style={footerPillIcon}
+                      />
+                      {link.label}
+                    </Link>
+                  ))}
                 </td>
               </tr>
             </table>
