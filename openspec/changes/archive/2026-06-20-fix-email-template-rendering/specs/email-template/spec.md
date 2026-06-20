@@ -1,10 +1,6 @@
-# Email Template Specification
+# Delta for email-template
 
-## Purpose
-
-React Email component at `src/emails/templates/weekly-newsletter.tsx` that transforms pre-processed newsletter markdown into email-client-compatible HTML using table-based layout with inline styles, ensuring visual parity with the editor preview.
-
-## Requirements
+## MODIFIED Requirements
 
 ### Requirement: Pipeline Parity
 
@@ -24,17 +20,6 @@ The email template MUST receive content that was processed through the three-ste
 - WHEN the unified pipeline processes the content with `{allowDangerousHtml: true}`
 - THEN raw HTML tags are preserved in the output
 - AND `preparseMarkdown` can still transform them in the final step
-
-### Requirement: Unsubscribe Link in Footer
-
-The email template MUST render an unsubscribe link below the decorative comment line (`< !--- Construyendo sistemas reales con IA --- >`). The link SHALL contain a `{unsubscribeToken}` placeholder that the email service replaces per subscriber.
-
-#### Scenario: Unsubscribe link present
-
-- GIVEN a rendered email with subscriber token `ABC123`
-- WHEN the email renders
-- THEN the footer contains `<a>` with href containing `unsubscribeToken=ABC123`
-- AND the link appears after the decorative comment line
 
 ### Requirement: Cross-Client HTML Structure
 
@@ -69,14 +54,3 @@ The template SHALL render these sections: macOS-style header (traffic light dots
 - AND a footer with pill-shaped social links containing `Img` elements and monospace text
 - AND social link pills have border styling matching preview design
 - AND the decorative comment line and unsubscribe anchor are present
-
-### Requirement: Newline Robustness
-
-The template SHOULD render gracefully when content arrives with `<br>` markers instead of `\n`. The `withLineBreaks` function SHALL handle both `\n` and `<br>` inputs without producing double line breaks.
-
-#### Scenario: Content with mixed line breaks
-
-- GIVEN content with both `\n` and `<br>` markers
-- WHEN `withLineBreaks` processes the content
-- THEN no double line breaks appear in the output
-- AND rendered email matches visual expectation
