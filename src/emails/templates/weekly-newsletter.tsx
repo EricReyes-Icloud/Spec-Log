@@ -8,7 +8,6 @@ import {
   Text,
   Hr,
   Link,
-  Img,
 } from "@react-email/components";
 import type { CSSProperties } from "react";
 
@@ -17,23 +16,22 @@ interface WeeklyNewsletterProps {
   unsubscribeToken: string;
 }
 
-const SOCIAL_LINKS = [
-  { label: "github.com/eric_reyes", href: "https://github.com/EricReyes-Icloud", icon: "/icono github.png" },
-  { label: "linkedin.com/in/eric_reyes", href: "https://www.linkedin.com/in/eric-reyes-b96418343/", icon: "/icono linkedin.png" },
-];
-
 const main: CSSProperties = {
   backgroundColor: "#f0f0f0",
-  fontFamily: "Arial, Helvetica, sans-serif",
-  padding: "20px 0",
+  fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+  padding: "0",
 };
 
 const container: CSSProperties = {
   backgroundColor: "#ffffff",
   maxWidth: "600px",
   margin: "0 auto",
+  marginTop: "24px",
+  marginBottom: "24px",
   borderRadius: "8px",
   overflow: "hidden",
+  boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
+  border: "1px solid #9ca3af",
 };
 
 const headerSection: CSSProperties = {
@@ -54,11 +52,11 @@ const contentSection: CSSProperties = {
 };
 
 const contentCell: CSSProperties = {
-  padding: "1.5rem 2rem",
+  padding: "0.5rem 2rem",
   color: "#1F1F1F",
-  fontFamily: "Arial, Helvetica, sans-serif",
-  fontSize: "16px",
-  lineHeight: "1.6",
+  fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+  fontSize: "17px",
+  lineHeight: "1.5",
 };
 
 const footerSection: CSSProperties = {
@@ -67,36 +65,40 @@ const footerSection: CSSProperties = {
 };
 
 const footerPillLink: CSSProperties = {
-  display: "inline-block",
+  display: "inline-flex",
+  alignItems: "center",
+  gap: "6px",
+  border: "1px solid white",
   borderRadius: "6px",
-  padding: "6px 12px",
-  fontFamily: "Courier New, monospace",
-  fontSize: "11px",
-  color: "#ffffff",
-  textDecoration: "none",
+  padding: "0.375rem 0.75rem",
   marginRight: "12px",
-};
-
-const footerPillIcon: CSSProperties = {
-  width: 14,
-  height: 14,
-  verticalAlign: "middle",
-  marginRight: "6px",
+  fontFamily: "ui-monospace, 'Cascadia Code', 'Fira Code', monospace",
+  fontSize: "0.6875rem",
+  color: "white",
+  textDecoration: "none",
 };
 
 const commentLine: CSSProperties = {
-  fontFamily: "Courier New, monospace",
-  fontSize: "13px",
-  color: "#888888",
-  margin: "1rem 0",
+  fontFamily: "ui-monospace, 'Cascadia Code', 'Fira Code', monospace",
+  fontSize: "0.7000rem",
+  color: "#9ca3af",
+  margin: "10px 0 5px",
   textAlign: "center" as const,
 };
 
 const unsubscribeLink: CSSProperties = {
-  color: "#999999",
+  color: "#9ca3af",
   fontSize: "12px",
   textDecoration: "underline",
 };
+
+
+const COMMENT_LINE_TEXT = "< !--- Construyendo sistemas reales con IA --- >";
+
+const SOCIAL_LINKS = [
+  { label: "github.com/eric_reyes", href: "https://github.com/EricReyes-Icloud" },
+  { label: "linkedin.com/in/eric_reyes", href: "https://www.linkedin.com/in/eric-reyes-b96418343/" },
+];
 
 export default function WeeklyNewsletter({
   htmlContent,
@@ -109,17 +111,15 @@ export default function WeeklyNewsletter({
     <Html>
       <Head>
         <style>{`
-          .coment-line { display:inline; font-size:0.80rem; color:#9ca3af; font-family:'Courier New',monospace; }
+          .coment-line { display:inline; font-size:0.90rem; color:#9ca3af; }
           .newsletter-orange { color:#F95616; font-weight:600; }
           .align-left { display:block; text-align:left; }
           .align-right { display:block; text-align:right; }
           .align-center { display:block; text-align:center; }
-          .newsletter-tip { background:#f97416; border-radius:8px; padding:1rem 1.25rem; margin-bottom:1rem; color:#1F1F1F; }
-          .newsletter-tip p { margin-bottom:0; }
           .newsletter-cta { background:#292C2E; border-radius:10px; padding:1rem 1.25rem; margin-bottom:1rem; }
           .newsletter-cta code { color:#e0e0e0; font-family:'Courier New',monospace; font-size:0.8125rem; line-height:1.6; white-space:pre-wrap; }
-          .content-area h1, .content-area h2, .content-area h3 { margin-top:1rem; margin-bottom:0.75rem; font-weight:700; }
-          .content-area h1 { font-size:1.5rem; }
+          .content-area h1, .content-area h2, .content-area h3 { margin-top:10px; margin-bottom:32px; font-weight:700; }
+          .content-area h1 { font-size:1.6rem; }
           .content-area h2 { font-size:1.25rem; }
           .content-area h3 { font-size:1.125rem; }
           .content-area p { margin-bottom:1rem; }
@@ -127,11 +127,16 @@ export default function WeeklyNewsletter({
           .content-area li { margin-bottom:0.25rem; }
           .content-area strong { font-weight:700; }
           .content-area a { color:#F95616; text-decoration:underline; }
+          .newsletter-tip { background:#f97416; border-radius:8px; padding:1rem 1.25rem; margin-bottom:1rem; color:#1F1F1F; }
+          .newsletter-tip p { margin-bottom:0; margin-top:0;}
+          @media (max-width: 600px) {
+            .email-container { margin: 12px auto !important; }
+          }
         `}</style>
       </Head>
       <Preview>Spec Log Newsletter</Preview>
       <Body style={main}>
-        <Container style={container}>
+        <Container style={container} className="email-container">
           {/* ── Header: macOS-style traffic light dots ── */}
           <Section style={headerSection}>
             <table
@@ -215,8 +220,8 @@ export default function WeeklyNewsletter({
           <Section style={footerSection}>
             <Hr
               style={{
-                borderColor: "#e0e0e0",
-                margin: "0 0 1.5rem",
+                border: "none",
+                borderTop: "none",
               }}
             />
 
@@ -233,13 +238,6 @@ export default function WeeklyNewsletter({
                       href={link.href}
                       style={footerPillLink}
                     >
-                      <Img
-                        src={`${baseUrl}${encodeURI(link.icon)}`}
-                        alt=""
-                        width="14"
-                        height="14"
-                        style={footerPillIcon}
-                      />
                       {link.label}
                     </Link>
                   ))}
@@ -248,7 +246,7 @@ export default function WeeklyNewsletter({
             </table>
 
             <Text style={commentLine}>
-              {"< !--- Construyendo sistemas reales con IA --- >"}
+              {COMMENT_LINE_TEXT}
             </Text>
 
             <Link href={unsubscribeUrl} style={unsubscribeLink}>

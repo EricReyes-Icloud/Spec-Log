@@ -73,6 +73,7 @@ const CENTER_REGEX = /<center>([\s\S]*?)(?:<\/center>|$)/g;
 const TIP_REGEX = /<tip>([\s\S]*?)(?:<\/tip>|$)/g;
 const CTA_REGEX = /<cta>([\s\S]*?)(?:<\/cta>|$)/g;
 
+
 export function preparseMarkdown(input: string): string {
   return input
     // CTA first — processes inner <orange> and <coment> into spans, then escapes

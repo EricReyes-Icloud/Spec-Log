@@ -9,6 +9,66 @@ import { Resend } from "resend";
 import { render } from "@react-email/render";
 import WeeklyNewsletter from "@/emails/templates/weekly-newsletter";
 
+/**
+ * Post-process HTML to render <tip> content inline and wrap it in a mailto: link.
+ *
+ * The pre-parser stores <tip> content in a `data-md` attribute as an empty div
+ * (`<div class="newsletter-tip" data-md="..."></div>`). In the preview, a React
+ * component reads `data-md` and re-processes it. In email, there's no JS, so
+ * we must pre-render the content at send-time.
+ *
+ * This function:
+ *  1. Finds each empty tip div with its data-md attribute
+ *  2. Extracts and decodes the raw content
+ *  3. Renders it through the same markdown pipeline
+ *  4. Wraps it in an <a href="mailto:..."> so clicking the tip opens a reply
+ *     compose to the sender's email address.
+ */
+function renderTipBoxes(html: string, senderEmail: string, replySubject: string): string {
+  // Match <div class="newsletter-tip" ... data-md="CONTENT"...></div>
+  // The data-md value may have HTML entities from rehype-stringify pass-through.
+  const tipDivRegex = /<div\s+class="newsletter-tip"\s+[^>]*data-md="([^"]*)"[^>]*><\/div>/g;
+
+  return html.replace(tipDivRegex, (_match: string, rawAttr: string) => {
+    // Step 1: decode HTML entities from the attribute value
+    const rawContent = rawAttr
+      .replace(/&amp;/g, "&")
+      .replace(/&lt;/g, "<")
+      .replace(/&gt;/g, ">")
+      .replace(/&quot;/g, '"')
+      .replace(/&#(\d+);/g, (_: string, code: string) =>
+        String.fromCharCode(Number(code)),
+      );
+
+    // Step 2: render the extracted content through the same markdown pipeline
+    // (remarkParse → remarkRehype → rehypeStringify) so that **bold**, links,
+    // and any other markdown syntax inside the tip render correctly.
+    const rendered = unified()
+      .use(remarkParse)
+      .use(remarkRehype, { allowDangerousHtml: true })
+      .use(rehypeStringify, { allowDangerousHtml: true })
+      .processSync(rawContent)
+      .toString();
+
+    // Step 3: wrap in a mailto: link so clicking the tip composes a reply.
+    //
+    // Structure: <div class="newsletter-tip"> with a nested <a>.
+    // The CSS class provides background, padding, border-radius, color, margin,
+    // and especially .newsletter-tip p { margin-bottom: 0 } — without that rule
+    // the <p> tags inside add ~32px of extra height vs the preview.
+    // The <a> inside makes the entire tip area clickable.
+    const encodedSubject = encodeURIComponent(replySubject);
+    const href = `mailto:${senderEmail}?subject=${encodedSubject}`;
+
+    return (
+      `<div class="newsletter-tip">` +
+      `<a href="${href}" ` +
+      `style="display:block;text-decoration:none;color:inherit;width:100%;margin:0;">` +
+      `${rendered}</a></div>`
+    );
+  });
+}
+
 export interface SubscriberData {
   email: string;
   name: string;
@@ -56,6 +116,16 @@ export async function sendNewsletter(
     .processSync(withCustomTags)
     .toString();
 
+  // 4) renderTipBoxes — post-process <div class="newsletter-tip" data-md="...">
+  //    to render the content inline and wrap in a mailto: reply link for email.
+  //    The pre-parser encodes tip content as a data attribute (empty div), which
+  //    works for the JS-powered preview but leaves an empty box in email clients.
+  const withRenderedTips = renderTipBoxes(
+    processedHtml,
+    process.env.RESEND_FROM_EMAIL!,
+    `Re: ${newsletterTitle}`,
+  );
+
   const resend = new Resend(process.env.RESEND_API_KEY);
   const db = getDb();
 
@@ -67,7 +137,7 @@ export async function sendNewsletter(
     try {
       const emailHtml = await render(
         WeeklyNewsletter({
-          htmlContent: processedHtml,
+          htmlContent: withRenderedTips,
           unsubscribeToken: subscriber.unsubscribeToken,
         }),
       );
