@@ -3,19 +3,19 @@
 @layer components {
   /* ── Section ── */
   .techlog-section {
-    @apply w-full bg-white px-18 py-20;
+    @apply w-full bg-white px-4 lg:px-18 py-8 lg:py-20;
   }
 
   .techlog-heading {
-    @apply font-sans font-bold text-brand-carbon mb-8;
-    font-size: 42px;
+    @apply text-[35px] lg:text-[42px] font-sans font-bold text-brand-carbon mb-10 lg:mb-11;
     line-height: 1.2;
-    margin-bottom: 50px;
+    margin-left: 10px;
   }
 
   .techlog-comment {
-    @apply text-brand-orange font-mono font-bold mb-12 select-none;
+    @apply text-brand-orange font-mono font-bold mb-8 select-none;
     font-size: 14px;
+    margin-left: 10px;
   }
 
   /* ── Cards container ── */
@@ -51,8 +51,14 @@
 
   .techlog-card-title {
     @apply font-sans font-bold text-brand-carbon mb-4;
-    font-size: 26px;
+    font-size: 24px;
     line-height: 1.3;
+  }
+
+  @media (width >= 1024px) {
+    .techlog-card-title {
+      font-size: 26px;
+    }
   }
 
   .techlog-card-text {

@@ -47,7 +47,7 @@
 
   /* ── Heading (right side) ── */
   .post-registro-heading {
-    @apply text-[50px] font-bold leading-tight mb-6;
+    @apply text-[35px] lg:text-[50px] font-bold leading-tight mb-6;
     color: var(--color-brand-carbon);
   }
 
@@ -57,14 +57,14 @@
 
   /* ── Explanatory paragraph (right side) ── */
   .post-registro-text {
-    @apply text-base leading-relaxed;
+    @apply text-[18px] lg:text-[20px] text-base leading-relaxed;
     color: var(--color-brand-carbon);
-    font-size: 20px;
   }
 
   /* ── Terminal card (no header bar, left side) ── */
   .post-registro-card {
     @apply w-full rounded-xl overflow-hidden;
+    min-width: 340px;
     max-width: 420px;
     height: 300px;
     background: #000000;

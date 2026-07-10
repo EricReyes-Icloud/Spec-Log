@@ -6,14 +6,11 @@
   }
 
   .spec-log-info-back {
-    @apply self-start text-2xl mb-4 no-underline;
+    @apply mt-[75px] lg:mt-[125px] ml-[20px] lg:ml-[150px] self-start text-2xl mb-4 no-underline;
     color: black;
-    transition: transform 0.2s ease;
     position: absolute;
     font-size: 1.5rem;
     transition: transform 0.2s ease;
-    left: 150px;
-    top: 190px
   }
 
 
@@ -27,7 +24,7 @@
   }
 
   .spec-log-info-heading {
-    @apply text-[45px] font-bold text-center mb-16 mt-7 leading-tight;
+    @apply text-[35px] lg:text-[45px] font-bold text-center mb-10 lg:mb-16 mt-7 leading-tight;
     color: var(--color-brand-carbon);
   }
 

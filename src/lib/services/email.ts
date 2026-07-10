@@ -8,6 +8,8 @@ import { Timestamp, FieldValue } from "firebase-admin/firestore";
 import { Resend } from "resend";
 import { render } from "@react-email/render";
 import WeeklyNewsletter from "@/emails/templates/weekly-newsletter";
+import WelcomeEmail from "@/emails/welcome-email";
+import { createReplyMailto } from "@/utils/mailto";
 
 /**
  * Post-process HTML to render <tip> content inline and wrap it in a mailto: link.
@@ -57,8 +59,7 @@ function renderTipBoxes(html: string, senderEmail: string, replySubject: string)
     // and especially .newsletter-tip p { margin-bottom: 0 } — without that rule
     // the <p> tags inside add ~32px of extra height vs the preview.
     // The <a> inside makes the entire tip area clickable.
-    const encodedSubject = encodeURIComponent(replySubject);
-    const href = `mailto:${senderEmail}?subject=${encodedSubject}`;
+    const href = createReplyMailto(senderEmail, replySubject);
 
     return (
       `<div class="newsletter-tip">` +
@@ -177,4 +178,40 @@ export async function sendNewsletter(
   );
 
   return { sentCount, failedCount, failedEmails };
+}
+
+/**
+ * Renders WelcomeEmail via @react-email/render and sends via Resend.
+ * No markdown pipeline, no Firestore updates, no rate limiting.
+ * Caller is responsible for error handling — this function throws on failure.
+ */
+export async function sendWelcomeEmail(
+  email: string,
+  unsubscribeToken: string,
+): Promise<void> {
+  const resend = new Resend(process.env.RESEND_API_KEY);
+
+  const senderEmail = "onboarding@resend.dev";
+  const replySubject = "Bienvenido a Spec Log";
+
+  const emailHtml = await render(
+    WelcomeEmail({ 
+    unsubscribeToken,
+    senderEmail,
+    replySubject,
+     }),
+  );
+
+  const { error: sendError } = await resend.emails.send({
+    from: process.env.RESEND_FROM_EMAIL!,
+    to: email,
+    subject: "Bienvenido a Spec Log",
+    html: emailHtml,
+  });
+
+  if (sendError) {
+    throw new Error(sendError.message ?? "Resend error");
+  }
+
+  console.info(`[email] Welcome email sent to ${email}`);
 }

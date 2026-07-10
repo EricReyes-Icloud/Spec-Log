@@ -104,7 +104,7 @@ export default function WhySpecLog() {
                 <span className="syn-punctuation">,</span>
               </CodeLine>
               <CodeLine>
-                {"           "}<span className="syn-string">{`"certificación"`}</span>
+                <span className="syn-string" style={{ paddingLeft: "11ch" }}>{`"certificación"`}</span>
                 <span className="syn-punctuation">],</span>
               </CodeLine>
               <CodeLine>
