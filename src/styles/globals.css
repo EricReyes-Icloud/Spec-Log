@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+/* ── Mobile overflow guard ── */
+html {
+  min-width: 320px;
+  overflow-x: hidden;
+}
+
 @theme {
   --color-brand-orange: #F95616;
   --color-brand-carbon: #1F1F1F;

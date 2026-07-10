@@ -78,6 +78,13 @@ const footerPillLink: CSSProperties = {
   textDecoration: "none",
 };
 
+const footerPillIcon: CSSProperties = {
+  width: 14,
+  height: 14,
+  verticalAlign: "middle",
+  marginRight: "6px",
+};
+
 const commentLine: CSSProperties = {
   fontFamily: "ui-monospace, 'Cascadia Code', 'Fira Code', monospace",
   fontSize: "0.7000rem",

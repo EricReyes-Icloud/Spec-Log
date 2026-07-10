@@ -1,11 +1,20 @@
+import Image from "next/image";
 import "@/styles/about-section.css";
 
 export default function AboutSection() {
   return (
     <section aria-label="Sobre el autor" className="about-section">
       <div className="about-container">
-        {/* Circular photo placeholder */}
-        <div className="about-photo" />
+        {/* Circular photo */}
+        <div className="about-photo">
+          <Image
+            src="/Foto profesional.png"
+            alt="Eric Reyes"
+            width={250}
+            height={250}
+            className="about-photo-img"
+          />
+        </div>
 
         {/* Text */}
         <div>

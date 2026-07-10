@@ -23,7 +23,7 @@
 @layer components {
   /* ── Sección ── */
   .wyg-section {
-    @apply w-full p-16 bg-brand-yellow;
+    @apply w-full p-7 lg:p-16 bg-brand-yellow;
   }
 
   .wyg-container {
@@ -37,27 +37,24 @@
 
   /* ── Bloque descriptivo ── */
   .wyg-title {
-    @apply font-sans font-bold text-brand-carbon;
-    font-size: 42px;
+    @apply text-[32px] lg:text-[42px] font-sans font-bold text-brand-carbon;
     line-height: 1.2;
   }
 
   .wyg-description {
-    @apply font-sans text-brand-carbon max-w-2xl;
-    font-size: 21px;
+    @apply text-[18px] lg:text-[21px] font-sans text-brand-carbon max-w-2xl;
     line-height: 1.5;
   }
 
   /* ── Contenedor de cards ── */
   .wyg-cards {
-    @apply flex flex-col md:flex-row gap-8 mt-10 items-stretch;
+    @apply flex flex-col lg:flex-row gap-8 mt-10 items-stretch;
   }
 
   /* ── Terminal Card ── */
   .wyg-card {
     @apply flex-1 rounded-xl overflow-hidden;
     width: 100%;
-    max-width: 730px;
     min-height: 380px;
     box-shadow: 6px 8px 0px rgba(0, 0, 0, 0.12),
                 12px 16px 0px rgba(0, 0, 0, 0.06);
@@ -114,7 +111,7 @@
 
   /* ── Terminal Body ── */
   .wyg-terminal-body {
-    @apply p-10 font-mono;
+    @apply p-7 lg:p-10 font-mono;
   }
 
   .wyg-terminal-body-light {
@@ -131,17 +128,15 @@
   }
 
   .wyg-card-heading {
-    @apply text-base font-bold mb-4;
+    @apply text-[25px] lg:text-[28px] font-bold mb-4;
   }
 
   .wyg-card-heading-light {
     @apply text-brand-carbon font-bold;
-    font-size: 28px;
   }
 
   .wyg-card-heading-dark {
     @apply text-white font-bold;
-    font-size: 28px;
   }
 
   .wyg-list {

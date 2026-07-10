@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { Timestamp } from "firebase-admin/firestore";
 import { getDb } from "@/lib/firebase-admin";
+import { sendWelcomeEmail } from "@/lib/services/email";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const TOKEN_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -82,6 +83,13 @@ export async function POST(request: Request) {
       totalEmailsSent: 0,
       unsubscribeToken,
     });
+
+    // Send welcome email — failure is logged but never blocks the response
+    try {
+      await sendWelcomeEmail(normalizedEmail, unsubscribeToken);
+    } catch (emailError) {
+      console.error("[email] Welcome email failed:", emailError);
+    }
 
     return NextResponse.json(
       { redirectUrl: "/subscribe" },

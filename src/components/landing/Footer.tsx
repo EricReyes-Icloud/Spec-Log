@@ -6,7 +6,7 @@ const SOCIAL_LINKS = [
   { label: "linkedin.com/in/eric_reyes", href: "https://www.linkedin.com/in/eric-reyes-b96418343/", icon: "/icono linkedin.png" },
 ];
 
-export default function Footer() {
+export default function Footer({ comment }: { comment?: string }) {
   return (
     <footer className="footer">
       <div className="footer-container">
@@ -33,7 +33,7 @@ export default function Footer() {
         </div>
 
         <p className="footer-comment">
-          {'/* Suscríbete a Spec Log... */'}
+          {comment ?? '/* Suscríbete a Spec Log... */'}
         </p>
       </div>
     </footer>
