@@ -148,7 +148,7 @@ export default function SubscribePage() {
             </h1>
             <p className="post-registro-text">
               Ahora recibirás contenido exclusivo sobre arquitectura de software,
-              desarrollo con IA y más contenido directamente en tu correo.
+              desarrollo con IA y más contenido directamente en tu correo. No olvides revisar tu bandeja de Spam.
             </p>
           </div>
         </div>

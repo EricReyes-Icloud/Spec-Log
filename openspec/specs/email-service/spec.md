@@ -108,3 +108,48 @@ The service MUST expose a `sendWelcomeEmail(email, unsubscribeToken)` function. 
 - WHEN the function executes
 - THEN neither `withLineBreaks()`, `preparseMarkdown()`, nor unified/rehype APIs are invoked
 - AND the template receives the raw static content directly
+
+### Requirement: Custom Sender Domain
+
+All emails sent via Resend MUST use the domain configured in `RESEND_FROM_EMAIL` as the `from` address. Both `sendWelcomeEmail()` and `sendNewsletter()` SHALL include `replyTo` in the `resend.emails.send()` call, sourced from the `RESEND_REPLY_TO_EMAIL` env var. The `bcc` in the mailto link (tip/reply sections) MUST be driven by `RESEND_BCC_MAILTO`. No `bcc` field SHALL appear in the `resend.emails.send()` API calls.
+
+#### Scenario: Welcome email uses custom sender domain
+
+- GIVEN `sendWelcomeEmail()` is called with a valid email
+- WHEN the Resend API call is made
+- THEN `from` is `newsletter@speclog.dpdns.org` (from `RESEND_FROM_EMAIL`)
+- AND `replyTo` includes `ereyes102504k@gmail.com` (from `RESEND_REPLY_TO_EMAIL`)
+- AND no `bcc` field is present in the API call
+
+#### Scenario: Newsletter sends use custom sender domain
+
+- GIVEN `sendNewsletter()` processes subscribers
+- WHEN each `resend.emails.send()` is called
+- THEN `from` is `newsletter@speclog.dpdns.org`
+- AND `replyTo` includes the personal email
+- AND no `bcc` field is present in the API call
+
+### Requirement: Mailto Sender Separated from From Header
+
+The `senderEmail` prop passed to email templates (for mailto links in tip/reply sections) MUST be the personal email from `RESEND_REPLY_TO_EMAIL`, NOT the `from` address. This applies to `sendWelcomeEmail()` (passed to `WelcomeEmail` component) and `sendNewsletter()` (passed to `renderTipBoxes()`). The `createReplyMailto()` function MUST accept an optional `bccEmail` parameter; when provided, it SHALL append `&bcc=` to the mailto href.
+
+#### Scenario: Welcome email mailto uses reply-to address
+
+- GIVEN `sendWelcomeEmail()` renders the template
+- WHEN the `senderEmail` prop is set
+- THEN its value is `process.env.RESEND_REPLY_TO_EMAIL`
+- AND the rendered mailto link targets `ereyes102504k@gmail.com`
+
+#### Scenario: Newsletter tip mailto uses reply-to address
+
+- GIVEN `sendNewsletter()` renders tip boxes
+- WHEN `renderTipBoxes()` is called
+- THEN the `senderEmail` argument is `process.env.RESEND_REPLY_TO_EMAIL`
+- AND the rendered mailto link targets the personal email with BCC
+
+#### Scenario: Mailto link includes BCC
+
+- GIVEN `createReplyMailto(senderEmail, replySubject, bccEmail)` is called with all three args
+- WHEN the mailto href is generated
+- THEN it contains `mailto:{senderEmail}?subject=...&bcc={encodedBccEmail}`
+- AND the BCC email is URL-encoded
