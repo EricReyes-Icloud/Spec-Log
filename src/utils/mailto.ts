@@ -1,8 +1,12 @@
 export function createReplyMailto(
   senderEmail: string,
   replySubject: string,
+  bccEmail?: string,
 ): string {
   const encodedSubject = encodeURIComponent(replySubject);
-
-  return `mailto:${senderEmail}?subject=${encodedSubject}`;
+  let href = `mailto:${senderEmail}?subject=${encodedSubject}`;
+  if (bccEmail) {
+    href += `&bcc=${encodeURIComponent(bccEmail)}`;
+  }
+  return href;
 }

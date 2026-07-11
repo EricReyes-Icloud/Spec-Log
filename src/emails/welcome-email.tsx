@@ -8,6 +8,8 @@ import {
   Text,
   Hr,
   Link,
+  Row,
+  Column,
 } from "@react-email/components";
 import type { CSSProperties } from "react";
 import { createReplyMailto } from "@/utils/mailto";
@@ -16,6 +18,7 @@ export interface WelcomeEmailProps {
   unsubscribeToken: string;
   senderEmail: string;
   replySubject: string;
+  bccMailto?: string;
 }
 
 const main: CSSProperties = {
@@ -69,17 +72,16 @@ const footerSection: CSSProperties = {
 };
 
 const footerPillLink: CSSProperties = {
-  display: "inline-flex",
-  alignItems: "center",
-  gap: "6px",
+  display: "inline-block",
   border: "1px solid white",
   borderRadius: "6px",
   padding: "0.375rem 0.75rem",
-  marginRight: "12px",
   fontFamily: "ui-monospace, 'Cascadia Code', 'Fira Code', monospace",
   fontSize: "0.6875rem",
   color: "white",
   textDecoration: "none",
+  whiteSpace: "nowrap",
+  gap: "6px",
 };
 
 const commentLine: CSSProperties = {
@@ -156,6 +158,7 @@ export default function WelcomeEmail({
   unsubscribeToken,
   senderEmail,
   replySubject,
+  bccMailto,
 }: WelcomeEmailProps) {
   const baseUrl =
     process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
@@ -163,14 +166,25 @@ export default function WelcomeEmail({
   const replyHref = createReplyMailto(
     senderEmail,
     replySubject,
+    bccMailto,
   );
 
   return (
     <Html>
-      <Head />
+      <Head>
+        <style>
+          {`
+            @media only screen and (max-width: 480px) {
+              .email-container {
+                max-width: 92% !important;
+              }
+            }
+          `}
+        </style>
+      </Head>
       <Preview>Spec Log Newsletter</Preview>
       <Body style={main}>
-        <Container style={container}>
+        <Container style={container} className="email-container">
           {/* ── Header: macOS-style traffic light dots ── */}
           <Section style={headerSection}>
             <table
@@ -292,7 +306,7 @@ export default function WelcomeEmail({
                     <strong>Registrar aquello que valga la pena recordar.</strong>
                     <br />
                     <br />
-                    <span style={{...tagComentStyle, ...tagCenterStyle}}>{"< !------------ before.you.leave ------------ >"}</span>
+                    <span style={{...tagComentStyle, ...tagCenterStyle}}>{"< !---------- before.you.leave ---------- >"}</span>
                     <br />
                     Tengo curiosidad.
                     <br />
@@ -338,27 +352,19 @@ export default function WelcomeEmail({
               }}
             />
 
-            <table
-              cellPadding="0"
-              cellSpacing="0"
-              style={{ width: "100%", borderCollapse: "collapse" }}
-            >
+            <table cellPadding="0" cellSpacing="0" style={{ margin: "0 auto" }}>
               <tr>
-                <td align="center">
-                  {SOCIAL_LINKS.map((link) => (
-                    <Link
-                      key={link.label}
-                      href={link.href}
-                      style={footerPillLink}
-                    >
+                {SOCIAL_LINKS.map((link, idx) => (
+                  <td key={link.label} align="center" style={{ paddingRight: idx === 0 ? "12px" : "0" }}>
+                    <Link href={link.href} style={footerPillLink}>
                       {link.label}
                     </Link>
-                  ))}
-                </td>
+                  </td>
+                ))}
               </tr>
             </table>
 
-            <Text style={commentLine}>{COMMENT_LINE_TEXT}</Text>
+            <Text style={commentLine} className="comment-line">{COMMENT_LINE_TEXT}</Text>
 
             <Link href={unsubscribeUrl} style={unsubscribeLink}>
               Cancelar suscripción

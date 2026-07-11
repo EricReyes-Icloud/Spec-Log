@@ -26,7 +26,7 @@ import { createReplyMailto } from "@/utils/mailto";
  *  4. Wraps it in an <a href="mailto:..."> so clicking the tip opens a reply
  *     compose to the sender's email address.
  */
-function renderTipBoxes(html: string, senderEmail: string, replySubject: string): string {
+function renderTipBoxes(html: string, senderEmail: string, replySubject: string, bccEmail?: string): string {
   // Match <div class="newsletter-tip" ... data-md="CONTENT"...></div>
   // The data-md value may have HTML entities from rehype-stringify pass-through.
   const tipDivRegex = /<div\s+class="newsletter-tip"\s+[^>]*data-md="([^"]*)"[^>]*><\/div>/g;
@@ -59,7 +59,7 @@ function renderTipBoxes(html: string, senderEmail: string, replySubject: string)
     // and especially .newsletter-tip p { margin-bottom: 0 } — without that rule
     // the <p> tags inside add ~32px of extra height vs the preview.
     // The <a> inside makes the entire tip area clickable.
-    const href = createReplyMailto(senderEmail, replySubject);
+    const href = createReplyMailto(senderEmail, replySubject, bccEmail);
 
     return (
       `<div class="newsletter-tip">` +
@@ -123,8 +123,9 @@ export async function sendNewsletter(
   //    works for the JS-powered preview but leaves an empty box in email clients.
   const withRenderedTips = renderTipBoxes(
     processedHtml,
-    process.env.RESEND_FROM_EMAIL!,
+    process.env.RESEND_REPLY_TO_EMAIL!,
     `Re: ${newsletterTitle}`,
+    process.env.RESEND_BCC_MAILTO!,
   );
 
   const resend = new Resend(process.env.RESEND_API_KEY);
@@ -145,6 +146,7 @@ export async function sendNewsletter(
 
       const { error: sendError } = await resend.emails.send({
         from: process.env.RESEND_FROM_EMAIL!,
+        replyTo: process.env.RESEND_REPLY_TO_EMAIL!,
         to: subscriber.email,
         subject: newsletterTitle,
         html: emailHtml,
@@ -191,7 +193,8 @@ export async function sendWelcomeEmail(
 ): Promise<void> {
   const resend = new Resend(process.env.RESEND_API_KEY);
 
-  const senderEmail = "onboarding@resend.dev";
+  const senderEmail = process.env.RESEND_REPLY_TO_EMAIL!;
+  const bccMailto = process.env.RESEND_BCC_MAILTO!;
   const replySubject = "Bienvenido a Spec Log";
 
   const emailHtml = await render(
@@ -199,11 +202,13 @@ export async function sendWelcomeEmail(
     unsubscribeToken,
     senderEmail,
     replySubject,
+    bccMailto,
      }),
   );
 
   const { error: sendError } = await resend.emails.send({
     from: process.env.RESEND_FROM_EMAIL!,
+    replyTo: process.env.RESEND_REPLY_TO_EMAIL!,
     to: email,
     subject: "Bienvenido a Spec Log",
     html: emailHtml,
