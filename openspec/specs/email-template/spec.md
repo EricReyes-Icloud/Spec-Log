@@ -38,8 +38,8 @@ The email template MUST render an unsubscribe link below the decorative comment 
 
 ### Requirement: Cross-Client HTML Structure
 
-The email template MUST use table-based layout with inline CSS styles for email-client compatibility. The root element MUST be a `<table>`. Font families SHALL use web-safe fallbacks (`Arial, Helvetica, sans-serif` and `Courier New, monospace`). The template MAY include an embedded `<style>` block inside the `<Head>` component for CSS classes used in the dynamic content area only. The template's own layout (header dots, wrapper table, footer structure) MUST still use inline styles.
-(Previously: all visual properties via inline styles only, no `<style>` blocks allowed)
+The email template MUST use table-based layout with inline CSS styles for email-client compatibility. The outermost element MUST be a fluid wrapper `<table>` at 100% width with `role="presentation"`, containing an inner `<td>` with `padding: 24px 4%`, which holds the content `<table>` at `max-width: 600px`. Font families SHALL use web-safe fallbacks (`Arial, Helvetica, sans-serif` and `Courier New, monospace`). The template MAY include an embedded `<style>` block inside the `<Head>` component for CSS classes used in the dynamic content area only. The template's own layout (header dots, wrapper table, footer structure) MUST still use inline styles.
+(Previously: root element was a plain `<table>` without fluid wrapper, `padding`, or `role="presentation"`; inner content table had no `max-width` constraint)
 
 #### Scenario: Table-based structure with embedded CSS
 
@@ -54,6 +54,14 @@ The email template MUST use table-based layout with inline CSS styles for email-
 - WHEN an email client strips `<style>` (rare)
 - THEN the layout remains intact via inline styles
 - AND only content-area custom class styles are lost
+
+#### Scenario: Fluid wrapper constrains mobile width
+
+- GIVEN a viewport of 375px
+- WHEN the email template renders
+- THEN the outermost element is a `<table>` at 100% width
+- AND the inner `<td>` has `padding: 24px 4%`
+- AND the content appears at ~92% viewport width with vertical margin
 
 ### Requirement: Content Sections
 

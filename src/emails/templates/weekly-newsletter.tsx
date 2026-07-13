@@ -3,7 +3,6 @@ import {
   Head,
   Preview,
   Body,
-  Container,
   Section,
   Text,
   Hr,
@@ -25,12 +24,12 @@ const main: CSSProperties = {
 const container: CSSProperties = {
   backgroundColor: "#ffffff",
   maxWidth: "600px",
+  width: "100%",
   margin: "0 auto",
   marginTop: "24px",
   marginBottom: "24px",
   borderRadius: "8px",
   overflow: "hidden",
-  boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
   border: "1px solid #9ca3af",
 };
 
@@ -65,17 +64,16 @@ const footerSection: CSSProperties = {
 };
 
 const footerPillLink: CSSProperties = {
-  display: "inline-flex",
-  alignItems: "center",
-  gap: "6px",
+  display: "inline-block",
   border: "1px solid white",
   borderRadius: "6px",
   padding: "0.375rem 0.75rem",
-  marginRight: "12px",
   fontFamily: "ui-monospace, 'Cascadia Code', 'Fira Code', monospace",
   fontSize: "0.6875rem",
   color: "white",
   textDecoration: "none",
+  wordBreak: "break-word",
+  gap: "6px",
 };
 
 const footerPillIcon: CSSProperties = {
@@ -137,13 +135,34 @@ export default function WeeklyNewsletter({
           .newsletter-tip { background:#f97416; border-radius:8px; padding:1rem 1.25rem; margin-bottom:1rem; color:#1F1F1F; }
           .newsletter-tip p { margin-bottom:0; margin-top:0;}
           @media (max-width: 600px) {
-            .email-container { margin: 12px auto !important; }
+            .content-area { font-size: 18px !important; }
+            .footer-pill-link { font-size: 0.5325rem !important; padding: 0.25rem 0.5rem !important; }
+            .comment-line { font-size: 0.6125rem !important; }
           }
         `}</style>
       </Head>
       <Preview>Spec Log Newsletter</Preview>
       <Body style={main}>
-        <Container style={container} className="email-container">
+        <table
+          align="center"
+          width="100%"
+          border={0}
+          cellPadding={0}
+          cellSpacing={0}
+          role="presentation"
+        >
+          <tr>
+            <td align="center" style={{ padding: "24px 4%" }}>
+              <div style={container}>
+                <table
+                  role="presentation"
+                  width="100%"
+                  cellPadding={0}
+                  cellSpacing={0}
+                  style={{ borderCollapse: "collapse" }}
+                >
+                  <tr>
+                    <td>
           {/* ── Header: macOS-style traffic light dots ── */}
           <Section style={headerSection}>
             <table
@@ -209,14 +228,15 @@ export default function WeeklyNewsletter({
             <table
               cellPadding="0"
               cellSpacing="0"
-              style={{ width: "100%", borderCollapse: "collapse" }}
+              style={{ width: "100%", borderCollapse: "collapse", tableLayout: "fixed" }}
             >
               <tr>
                 <td style={contentCell}>
-                  <div className="content-area">
-                    <div
-                      dangerouslySetInnerHTML={{ __html: htmlContent }}
-                    />
+                  <div
+                    className="content-area"
+                    style={{ maxWidth: "100%", overflowWrap: "break-word", wordBreak: "break-word" }}
+                  >
+                    <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
                   </div>
                 </td>
               </tr>
@@ -232,27 +252,19 @@ export default function WeeklyNewsletter({
               }}
             />
 
-            <table
-              cellPadding="0"
-              cellSpacing="0"
-              style={{ width: "100%", borderCollapse: "collapse" }}
-            >
+            <table cellPadding="0" cellSpacing="0" style={{ margin: "0 auto" }}>
               <tr>
-                <td align="center">
-                  {SOCIAL_LINKS.map((link) => (
-                    <Link
-                      key={link.label}
-                      href={link.href}
-                      style={footerPillLink}
-                    >
+                {SOCIAL_LINKS.map((link, idx) => (
+                  <td key={link.label} align="center" style={{ paddingRight: idx === 0 ? "12px" : "0" }}>
+                    <Link href={link.href} style={footerPillLink} className="footer-pill-link">
                       {link.label}
                     </Link>
-                  ))}
-                </td>
+                  </td>
+                ))}
               </tr>
             </table>
 
-            <Text style={commentLine}>
+            <Text style={commentLine} className="comment-line">
               {COMMENT_LINE_TEXT}
             </Text>
 
@@ -260,7 +272,13 @@ export default function WeeklyNewsletter({
               Cancelar suscripción
             </Link>
           </Section>
-        </Container>
+                    </td>
+                  </tr>
+                </table>
+        </div>
+          </td>
+        </tr>
+      </table>
       </Body>
     </Html>
   );

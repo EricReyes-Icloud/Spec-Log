@@ -3,7 +3,6 @@ import {
   Head,
   Preview,
   Body,
-  Container,
   Section,
   Text,
   Hr,
@@ -31,12 +30,12 @@ const main: CSSProperties = {
 const container: CSSProperties = {
   backgroundColor: "#ffffff",
   maxWidth: "600px",
+  width: "100%",
   margin: "0 auto",
   marginTop: "24px",
   marginBottom: "24px",
   borderRadius: "8px",
   overflow: "hidden",
-  boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
   border: "1px solid #9ca3af",
 };
 
@@ -80,7 +79,7 @@ const footerPillLink: CSSProperties = {
   fontSize: "0.6875rem",
   color: "white",
   textDecoration: "none",
-  whiteSpace: "nowrap",
+  wordBreak: "break-word",
   gap: "6px",
 };
 
@@ -172,19 +171,36 @@ export default function WelcomeEmail({
   return (
     <Html>
       <Head>
-        <style>
-          {`
-            @media only screen and (max-width: 480px) {
-              .email-container {
-                max-width: 92% !important;
-              }
-            }
-          `}
-        </style>
+        <style>{`
+          @media (max-width: 600px) {
+            .email-content-cell { font-size: 18px !important; }
+            .footer-pill-link { font-size: 0.5325rem !important; padding: 0.25rem 0.5rem !important; }
+            .comment-line { font-size: 0.6125rem !important; }
+          }
+        `}</style>
       </Head>
       <Preview>Spec Log Newsletter</Preview>
       <Body style={main}>
-        <Container style={container} className="email-container">
+        <table
+          align="center"
+          width="100%"
+          border={0}
+          cellPadding={0}
+          cellSpacing={0}
+          role="presentation"
+        >
+          <tr>
+            <td align="center" style={{ padding: "24px 4%" }}>
+              <div style={container}>
+                <table
+                  role="presentation"
+                  width="100%"
+                  cellPadding={0}
+                  cellSpacing={0}
+                  style={{ borderCollapse: "collapse" }}
+                >
+                  <tr>
+                    <td>
           {/* ── Header: macOS-style traffic light dots ── */}
           <Section style={headerSection}>
             <table
@@ -250,10 +266,10 @@ export default function WelcomeEmail({
             <table
               cellPadding="0"
               cellSpacing="0"
-              style={{ width: "100%", borderCollapse: "collapse" }}
+              style={{ width: "100%", borderCollapse: "collapse", tableLayout: "fixed" }}
             >
               <tr>
-                <td style={contentCell}>
+                <td style={contentCell} className="email-content-cell">
                   {/* Comment header line */}
                   <Text style={tagComentStyle}>{"[LOG-000]"}</Text>
                   <Text style={{...tagComentStyle, ...tagRightStyle}}>~ spec-log/welcome.md</Text>
@@ -356,7 +372,7 @@ export default function WelcomeEmail({
               <tr>
                 {SOCIAL_LINKS.map((link, idx) => (
                   <td key={link.label} align="center" style={{ paddingRight: idx === 0 ? "12px" : "0" }}>
-                    <Link href={link.href} style={footerPillLink}>
+                    <Link href={link.href} style={footerPillLink} className="footer-pill-link">
                       {link.label}
                     </Link>
                   </td>
@@ -370,7 +386,13 @@ export default function WelcomeEmail({
               Cancelar suscripción
             </Link>
           </Section>
-        </Container>
+                    </td>
+                  </tr>
+                </table>
+        </div>
+          </td>
+        </tr>
+      </table>
       </Body>
     </Html>
   );
