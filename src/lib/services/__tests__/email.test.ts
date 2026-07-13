@@ -50,7 +50,7 @@ describe("sendWelcomeEmail", () => {
   beforeEach(() => {
     vi.clearAllMocks();
     process.env.RESEND_API_KEY = "test_resend_key";
-    process.env.RESEND_FROM_EMAIL = "test@spec-log.dev";
+    process.env.RESEND_FROM_EMAIL = "Spec Log <newsletter@speclog.dpdns.org>";
   });
 
   it("calls render() with WelcomeEmail then resend.emails.send() with correct args and subject", async () => {
@@ -67,7 +67,7 @@ describe("sendWelcomeEmail", () => {
     // Assert resend.emails.send was called with correct args
     expect(mockEmailsSend).toHaveBeenCalledTimes(1);
     expect(mockEmailsSend).toHaveBeenCalledWith({
-      from: "test@spec-log.dev",
+      from: "Spec Log <newsletter@speclog.dpdns.org>",
       to: email,
       subject: "Bienvenido a Spec Log",
       html: "<html>mock rendered email</html>",
