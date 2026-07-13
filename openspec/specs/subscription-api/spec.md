@@ -68,7 +68,8 @@ On valid input with no duplicate, the system MUST create a document at `subscrib
 | `totalEmailsSent` | number | `0` |
 | `unsubscribeToken` | string | random 8-char uppercase token |
 
-The endpoint MUST return 201 with `{ "redirectUrl": "/subscribe" }`.
+After the document is created, the system SHOULD call `sendWelcomeEmail(email, unsubscribeToken)` wrapped in a try/catch block. The endpoint MUST return 201 with `{ "redirectUrl": "/subscribe" }` regardless of the email send outcome.
+(Previously: no welcome email send step after document creation)
 
 #### Scenario: Document created with full schema
 
@@ -80,6 +81,21 @@ The endpoint MUST return 201 with `{ "redirectUrl": "/subscribe" }`.
 - AND `metadata.browser` and `metadata.country` are set from request headers
 - AND `unsubscribeToken` is a non-empty string
 - AND a 201 response is returned with `redirectUrl`
+
+#### Scenario: Welcome email sent after document creation
+
+- GIVEN a valid subscription request for `ana@example.com`
+- WHEN the document is created successfully
+- THEN `sendWelcomeEmail("ana@example.com", unsubscribeToken)` is called
+- AND a 201 response is returned with `redirectUrl`
+
+#### Scenario: Email failure does not block registration
+
+- GIVEN a valid subscription request
+- WHEN the document is created but `sendWelcomeEmail` throws an error
+- THEN the error is caught and logged server-side
+- AND a 201 response is still returned with `redirectUrl`
+- AND the subscriber document persists in Firestore
 
 ### Requirement: Browser Detection
 

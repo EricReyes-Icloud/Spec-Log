@@ -1,0 +1,193 @@
+@reference "tailwindcss";
+
+/* ── Editor page wrapper ── */
+.admin-editor-page {
+  min-height: 100vh;
+  background-color: #1a1a1a;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Editor toolbar (title input + save button) ── */
+.admin-editor-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 1.5rem;
+  background: rgba(26, 26, 26, 0.6);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.admin-editor-title-input {
+  flex: 1;
+  max-width: 24rem;
+  border: none;
+  background-color: #d2d2d2;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.8125rem;
+  color: #1a1a1a;
+  outline: none;
+  border-radius: 4px;
+  font-family: inherit;
+}
+
+.admin-editor-title-input::placeholder {
+  color: #555;
+}
+
+.admin-editor-title-input:focus {
+  outline: 2px solid #F95616;
+  outline-offset: 2px;
+}
+
+.admin-editor-save-btn {
+  border: none;
+  background-color: #F95616;
+  padding: 0.5rem 1.25rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+  border-radius: 4px;
+}
+
+.admin-editor-save-btn:hover {
+  opacity: 0.9;
+}
+
+.admin-editor-save-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.admin-editor-success {
+  font-size: 0.75rem;
+  color: #4ade80;
+  font-weight: 600;
+}
+
+.admin-editor-error {
+  font-size: 0.75rem;
+  color: #ff4444;
+  font-weight: 600;
+}
+
+/* ── Split pane container (glassmorphism) ── */
+.admin-editor-split {
+  flex: 1 0 auto;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 0;
+
+  /* Glassmorphism — matching admin-login-card pattern */
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  background: rgba(26, 26, 26, 0.4);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.5),
+    inset 0 2px 0 rgba(255, 255, 255, 0.06);
+  margin: 1rem 1.5rem;
+}
+
+/* ── Left pane: textarea ── */
+.admin-editor-left {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.admin-editor-textarea {
+  flex: 1;
+  width: 100%;
+  border: none;
+  background: transparent;
+  padding: 1.25rem;
+  font-family: ui-monospace, "Cascadia Code", "Fira Code", "Consolas", monospace;
+  font-size: 0.875rem;
+  line-height: 1.7;
+  color: #e0e0e0;
+  resize: none;
+  outline: none;
+}
+
+.admin-editor-textarea::placeholder {
+  color: #666;
+}
+
+/* ── Light gray vertical divider ── */
+.admin-editor-divider {
+  width: 1px;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* ── Right pane: preview ── */
+.admin-editor-right {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+/* ── Top navigation bar (logout + back buttons) ── */
+.admin-editor-top-bar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1.5rem;
+}
+
+.admin-editor-top-bar-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #e0e0e0;
+  padding: 0.4rem 1rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.admin-editor-top-bar-btn:hover {
+  border-color: #F95616;
+  color: #F95616;
+}
+
+.admin-editor-top-bar-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ── Publish bar (bottom of the editor) ── */
+.admin-editor-publish-bar {
+  display: flex;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.admin-editor-publish-btn {
+  background: #F95616;
+  color: #1a1a1a;
+  border: none;
+  padding: 0.6rem 2.5rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: opacity 0.2s ease;
+}
+
+.admin-editor-publish-btn:hover {
+  opacity: 0.9;
+}
+
+.admin-editor-publish-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}

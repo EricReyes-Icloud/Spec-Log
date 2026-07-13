@@ -1,0 +1,227 @@
+@reference "tailwindcss";
+
+/* ── Email template preview wrapper ── */
+.newsletter-template {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 25rem;
+  max-width: 35rem;
+  background: #ffffff;
+  border: 1px solid #454545;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* ── macOS-style header with traffic light dots ── */
+.newsletter-template-header {
+  display: flex;
+  align-items: center; 
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: #292C2E;
+  border-bottom: 1px solid #292C2E;
+}
+
+.newsletter-template-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.newsletter-template-dot--red {
+  background-color: #FF5457;
+}
+
+.newsletter-template-dot--yellow {
+  background-color: #FFC653;
+}
+
+.newsletter-template-dot--green {
+  background-color: #56E75D;
+}
+
+/* ── Content area ── */
+.newsletter-template-content {
+  flex: 1;
+  padding: 1.5rem 2rem 1.5rem;
+  color: #1f1f1f;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  /* Line breaks are handled by withLineBreaks() at the string level
+     (converts every \n to <br>\n before markdown parsing), not via
+     CSS white-space. */
+}
+
+/* Markdown-rendered element styles inside the template */
+
+/* Blocks de código necesitan pre-wrap para no desbordar */
+.newsletter-template-content pre,
+.newsletter-template-content code {
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+}
+.newsletter-template-content h1,
+.newsletter-template-content h2,
+.newsletter-template-content h3 {
+  margin-top: 1rem;
+  margin-bottom: 0.75rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.newsletter-template-content h1 {
+  font-size: 1.5rem;
+}
+
+.newsletter-template-content h2 {
+  font-size: 1.25rem;
+}
+
+.newsletter-template-content h3 {
+  font-size: 1.125rem;
+}
+
+.newsletter-template-content p {
+  margin-bottom: 1rem;
+}
+
+.newsletter-template-content ul,
+.newsletter-template-content ol {
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+}
+
+.newsletter-template-content li {
+  margin-bottom: 0.25rem;
+}
+
+.newsletter-template-content strong {
+  font-weight: 700;
+}
+
+.newsletter-template-content a {
+  color: #F95616;
+  text-decoration: underline;
+}
+
+/* Custom comment line — smaller, muted */
+.newsletter-template-content .coment-line {
+  display: inline;
+  font-size: 0.80rem;
+  color: #9ca3af;
+}
+
+/* Orange highlight — brand accent color */
+.newsletter-template-content .newsletter-orange {
+  color: #F95616;
+  font-weight: 600;
+}
+
+/* ── Alignment wrappers — left/right/center ── */
+/* display: block on <span> is safe: parse5 uses tag names (not CSS) to
+   determine DOM structure. <span> is inherently inline in HTML spec, so it
+   stays inside <p> without auto-close. display: block makes it fill width
+   so text-align can actually distribute space. */
+.newsletter-template-content .align-left {
+  display: block;
+  text-align: left;
+}
+.newsletter-template-content .align-right {
+  display: block;
+  text-align: right;
+}
+.newsletter-template-content .align-center {
+  display: block;
+  text-align: center;
+}
+
+/* ── Tip / callout block ── */
+.newsletter-tip {
+  background: #f97416;
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1rem;
+  color: #1F1F1F;
+}
+
+.newsletter-tip p {
+  margin-bottom: 0;
+}
+
+.newsletter-tip p + p {
+  margin-top: 0.75rem;
+}
+
+.newsletter-tip:hover{
+  cursor: pointer;
+  background: #f98b16;
+}
+
+/* ── CTA / code block ── */
+.newsletter-cta {
+  background: #292C2E;
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1rem;
+  overflow-x: auto;
+}
+
+.newsletter-cta code {
+  color: #e0e0e0;
+  font-family: ui-monospace, "Cascadia Code", "Fira Code", monospace;
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+/* ── Footer ── */
+.newsletter-template-footer {
+  flex-shrink: 0;
+  padding: 1rem 1.5rem 1.5rem;
+  display: flex; 
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  border-top: 1px solid #292C2E;
+  background: #292C2E;
+}
+
+.newsletter-template-footer-links {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.newsletter-template-footer-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  border: 1px solid white;
+  border-radius: 6px;
+  padding: 0.375rem 0.75rem;
+  font-size: 0.6875rem;
+  font-family: ui-monospace, "Cascadia Code", "Fira Code", monospace;
+  color: white;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.newsletter-template-footer-link:hover {
+  color: #F95616;
+}
+
+.newsletter-template-footer-icon {
+  width: 14px;
+  height: 14px;
+  object-fit: contain;
+}
+
+.newsletter-template-footer-comment {
+  font-size: 0.6875rem;
+  color: #9ca3af;
+  font-family: ui-monospace, "Cascadia Code", "Fira Code", monospace;
+}

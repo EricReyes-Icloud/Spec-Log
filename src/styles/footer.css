@@ -10,17 +10,17 @@
   }
 
   .footer-links {
-    @apply flex flex-col sm:flex-row gap-4;
+    @apply flex flex-row flex-wrap gap-1 sm:gap-2;
   }
 
   .footer-link {
-    @apply border border-white rounded-md px-4 py-2 text-white font-mono text-sm
-           hover:text-gray-400 transition-colors
+    @apply border border-white rounded-md px-1.5 sm:px-2 lg:px-4 py-1 lg:py-2 text-white font-mono text-sm text-[10px] lg:text-[14px]
+           hover:text-[#F95616] transition-colors
            flex items-center gap-2;
   }
 
   .footer-icon {
-    @apply w-5 h-5 object-contain;
+    @apply w-4 lg:w-5 h-4 lg:h-5 object-contain;
   }
 
   .footer-comment {

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import MacHeader from "@/components/landing/MacHeader";
 import Footer from "@/components/landing/Footer";
 import "@/styles/post-registro.css";
@@ -22,33 +23,22 @@ export default function SubscribePage() {
   useEffect(() => {
     setMounted(true);
 
-    // 1. localStorage gate — already seen?
-    const alreadyShown = localStorage.getItem("animationShown");
-    if (alreadyShown) {
-      setAnimState("SUCCESS");
-      return;
-    }
-
-    // 2. prefers-reduced-motion check
+    // 1. prefers-reduced-motion check (skip animation for accessibility)
     const prefersReduced = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
     if (prefersReduced) {
-      localStorage.setItem("animationShown", "true");
       setAnimState("SUCCESS");
       return;
     }
 
-    // 3. First visit — set flag IMMEDIATELY so refresh always shows SUCCESS
-    localStorage.setItem("animationShown", "true");
-
-    // 4. Fire the animation sequence
+    // 2. Fire the animation sequence on every visit
     const t1 = setTimeout(() => setAnimState("CHECK_1"), 1500);
     const t2 = setTimeout(() => setAnimState("CHECK_2"), 3000);
     const t3 = setTimeout(() => setAnimState("CHECK_3"), 4500);
-    const t4 = setTimeout(() => setAnimState("CHECK_4"), 4500);
-    const t5 = setTimeout(() => setAnimState("CHECK_5"), 6000);
-    const t6 = setTimeout(() => setAnimState("SUCCESS"), 6000);
+    const t4 = setTimeout(() => setAnimState("CHECK_4"), 6000);
+    const t5 = setTimeout(() => setAnimState("CHECK_5"), 7500);
+    const t6 = setTimeout(() => setAnimState("SUCCESS"), 7800);
 
     return () => {
       clearTimeout(t1);
@@ -66,7 +56,7 @@ export default function SubscribePage() {
   /* ── Render ── */
   return (
     <>
-      <MacHeader showTimer={false} buttonHref="/" buttonText="landing" />
+      <MacHeader showTimer={true} buttonHref="/" buttonText="landing" />
 
       <main className="post-registro-main">
         {/* Orange comment — full width */}
@@ -158,13 +148,23 @@ export default function SubscribePage() {
             </h1>
             <p className="post-registro-text">
               Ahora recibirás contenido exclusivo sobre arquitectura de software,
-              desarrollo con IA y más contenido directamente en tu correo.
+              desarrollo con IA y más contenido directamente en tu correo. No olvides revisar tu bandeja de Spam.
             </p>
           </div>
         </div>
+
+        {/* ── Back to landing button (fades in after animation completes) ── */}
+        <Link
+          href="/"
+          className={`block w-full sm:w-[500px] sm:ml-auto mt-12 px-8 py-3.5 bg-brand-orange text-brand-carbon font-bold rounded-md font-mono text-base text-center hover:bg-[#F98016] transition-opacity duration-700 no-underline ${
+            animState === "SUCCESS" ? "opacity-100" : "opacity-0"
+          }`}
+        >
+          ← Volver a la landing
+        </Link>
       </main>
 
-      <Footer />
+      <Footer comment="/* ¡Gracias por suscribirte en Spec Log! */" />
     </>
   );
 }
