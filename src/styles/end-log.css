@@ -59,7 +59,7 @@
   /* ── Terminal Body ── */
   .endlog-body {
     @apply px-8 py-10 font-mono;
-    min-height: 360px;
+    min-height: 525px;
   }
 
   .endlog-line {

@@ -14,16 +14,16 @@
   }
 
   .footer-link {
-    @apply border border-white rounded-md px-1.5 sm:px-2 lg:px-4 py-1 lg:py-2 text-white font-mono text-sm text-[10px] lg:text-[14px]
+    @apply border border-white rounded-md px-1.5 sm:px-2 lg:px-4 py-1 lg:py-2 text-white font-mono text-sm text-[9px] lg:text-[14px]
            hover:text-[#F95616] transition-colors
            flex items-center gap-2;
   }
 
   .footer-icon {
-    @apply w-4 lg:w-5 h-4 lg:h-5 object-contain;
+    @apply w-3 lg:w-5 h-3 lg:h-5 object-contain;
   }
 
   .footer-comment {
-    @apply text-brand-comment font-mono text-sm;
+    @apply text-[9px] lg:text-[14px] text-brand-comment font-mono text-sm;
   }
 }
