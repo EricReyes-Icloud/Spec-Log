@@ -24,6 +24,6 @@
   }
 
   .footer-comment {
-    @apply text-[9px] lg:text-[14px] text-brand-comment font-mono text-sm;
+    @apply text-[10px] lg:text-[14px] text-brand-comment font-mono text-sm;
   }
 }
