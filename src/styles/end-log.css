@@ -21,7 +21,7 @@
 
   /* ── Terminal Card ── */
   .endlog-terminal {
-    @apply mx-auto rounded-xl overflow-hidden;
+    @apply mx-auto lg:max-h-[410px] rounded-xl overflow-hidden;
     max-width: 680px;
     width: 100%;
     background: #000000;
