@@ -6,9 +6,10 @@
   }
 
   .spec-log-info-back {
-    @apply mt-[75px] lg:mt-[125px] ml-[20px] lg:ml-[150px] self-start text-2xl mb-4 no-underline;
+    @apply mt-[63px] lg:mt-[125px] ml-[8px] lg:ml-[150px] self-start text-2xl mb-4 no-underline p-3;
     color: black;
     position: absolute;
+    z-index: 20;
     font-size: 1.5rem;
     transition: transform 0.2s ease;
   }
@@ -24,7 +25,7 @@
   }
 
   .spec-log-info-heading {
-    @apply text-[35px] lg:text-[45px] font-bold text-center mb-10 lg:mb-16 mt-7 leading-tight;
+    @apply text-[35px] lg:text-[45px] font-bold text-center mb-9 lg:mb-16 mt-7 leading-tight;
     color: var(--color-brand-carbon);
   }
 

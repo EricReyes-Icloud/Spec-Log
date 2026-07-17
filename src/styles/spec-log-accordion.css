@@ -27,9 +27,8 @@
   }
 
   .accordion-question {
-    @apply font-bold text-lg;
+    @apply font-bold text-lg text-[20px] lg:text-[21px];
     color: var(--color-brand-carbon);
-    font-size: 21px;
   }
 
   .accordion-answer {
@@ -40,7 +39,7 @@
   }
 
   .accordion-answer.open {
-    max-height: 500px;
+    max-height: 550px;
   }
 
   .accordion-answer p {
