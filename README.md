@@ -52,57 +52,127 @@ Diseñar un sistema ligero y escalable para la creación y envío de newsletters
 #### Persistencia
 - Firebase Firestore
 
+#### Autenticación
+- Firebase Auth (client SDK)
+- Firebase Admin SDK
+
+#### Markdown Processing
+- react-markdown
+- remark-parse / remark-rehype
+- rehype-raw / rehype-stringify
+- unified
+
+#### Testing
+- Vitest
+- Testing Library (jest-dom, react)
+
 #### Hosting
 - Vercel
 
 #### Diseño
-- Figma / Canva
+- Figma
 
 ---
 
 ### Arquitectura
 
-El proyecto sigue una arquitectura modular enfocada en reutilización de componentes y separación clara de responsabilidades.
+El proyecto sigue una arquitectura modular enfocada en reutilización de componentes y separación clara de responsabilidades. Todo el código fuente vive dentro de `src/`.
 
 ```txt
 /spec-log
 │
-├── app/
-│   ├── page.tsx
-│   ├── subscribe/
-│   └── admin/
+├── src/
+│   ├── app/
+│   │   ├── page.tsx
+│   │   ├── layout.tsx
+│   │   ├── subscribe/
+│   │   ├── spec-log-info/
+│   │   └── admin/
+│   │       ├── login/
+│   │       ├── editor/[id]/
+│   │       └── newsletters/
+│   │
+│   ├── app/api/
+│   │   ├── auth/session/
+│   │   ├── newsletter/send/
+│   │   └── subscribe/
+│   │
+│   ├── components/
+│   │   ├── email/
+│   │   │   └── NewsletterPreview.tsx
+│   │   └── landing/
+│   │       ├── Hero.tsx
+│   │       ├── AboutSection.tsx
+│   │       ├── MacHeader.tsx
+│   │       ├── Footer.tsx
+│   │       ├── EndLog.tsx
+│   │       ├── TechnicalLog.tsx
+│   │       ├── WhatYouGet.tsx
+│   │       ├── WhySpecLog.tsx
+│   │       └── SpecLogAccordion.tsx
+│   │
+│   ├── emails/
+│   │   ├── welcome-email.tsx
+│   │   └── templates/
+│   │       └── weekly-newsletter.tsx
+│   │
+│   ├── lib/
+│   │   ├── firebase-admin.ts
+│   │   ├── firebase-client.ts
+│   │   ├── markdown-preparser.ts
+│   │   └── services/
+│   │       ├── email.ts
+│   │       └── subscribe.ts
+│   │
+│   ├── styles/
+│   │   ├── globals.css
+│   │   ├── hero.css
+│   │   ├── footer.css
+│   │   ├── mac-header.css
+│   │   ├── about-section.css
+│   │   ├── tech-log.css
+│   │   ├── end-log.css
+│   │   ├── what-you-get.css
+│   │   ├── why-spec-log.css
+│   │   ├── spec-log-info.css
+│   │   ├── spec-log-accordion.css
+│   │   ├── admin-login.css
+│   │   ├── admin-editor.css
+│   │   ├── newsletter-template.css
+│   │   └── post-registro.css
+│   │
+│   ├── types/
+│   │   └── css.d.ts
+│   │
+│   ├── utils/
+│   │   └── mailto.ts
+│   │
+│   └── proxy.ts
 │
-├── components/
-│   └── email/
-│       ├── Header.tsx
-│       ├── Footer.tsx
-│       ├── ReplyBox.tsx
-│       └── CodeComment.tsx
-│   
-│  
+├── openspec/
+│   ├── changes/
+│   ├── specs/
+│   ├── program/
+│   └── PR-* files
 │
-├── emails/
-│   └── templates/
-│       └── weekly-newsletter.tsx
+├── imgs/
 │
-├── lib/
-│   ├── resend/
-│   ├── supabase/
-│   └── services/
-│
-└── styles/
-│
-└── data/
+└── public/
 ```
 
 ### Principales responsabilidades
 
-- app/ → páginas y flujo principal del sistema
-- components/email/ → componentes reutilizables del diseño editorial
-- emails/templates/ → estructura de newsletters
-- lib/services/ → lógica de negocio y servicios
-- styles/ → sistema visual global
-- data/ → Persistencia simple
+- `src/app/` → Páginas y flujo principal del sistema (landing, suscripción, admin login, editor de newsletters, listado)
+- `src/app/api/` → API routes (autenticación Firebase, envío de newsletters, suscripción)
+- `src/components/landing/` → Componentes reutilizables de la landing page
+- `src/components/email/` → Componentes reutilizables de diseño editorial para emails
+- `src/emails/` → Templates de newsletters (welcome email + weekly newsletter)
+- `src/lib/` → Configuración de servicios externos (Firebase client + admin, Resend)
+- `src/lib/services/` → Lógica de negocio (suscripción, envío de emails)
+- `src/styles/` → Sistema visual global (15 archivos CSS)
+- `src/utils/` → Utilidades generales
+- `src/types/` → Declaraciones de tipos globales
+- `openspec/` → Documentación SDD, PRs, cambios planificados y archivados
 
 ### Principios Utilizados
 
@@ -140,23 +210,27 @@ Spec Log no busca convertirse en una plataforma masiva de newsletters, sino en u
 
 #### El proyecto prioriza:
 
-profundidad sobre volumen
-criterio sobre automatización excesiva
-identidad sobre plantillas genéricas
-evolución real sobre contenido superficial
+- Profundidad sobre volumen
+- Criterio sobre automatización excesiva
+- Identidad sobre plantillas genéricas
+- Evolución real sobre contenido superficial
 
 La intención es construir una experiencia que refleje cómo piensa y evoluciona un desarrollador mientras diseña sistemas reales utilizando IA como herramienta estratégica y no como reemplazo del razonamiento técnico.
 
 ### Estado del Proyecto
 
-En desarrollo activo.
+En desarrollo activo — fase de consolidación y optimización.
 
-Actualmente se encuentra en fase de:
+Actualmente el sistema cuenta con:
 
-- Definición arquitectónica
-- Diseño visual del sistema editorial
-- Construcción de componentes base
-- Integración del flujo de suscripción y envío de correos
+- Landing page completa con identidad visual propia
+- Panel de administración con autenticación Firebase (login, editor de newsletters)
+- Flujo de suscripción funcional con persistencia en Firestore
+- Sistema de envío de newsletters (welcome email + weekly newsletter) vía Resend
+- Templates de email con diseño responsive (compatible con Apple Mail, Gmail)
+- Dominio personalizado (speclog.dpdns.org) y deploy en Vercel
+- Múltiples ciclos de SDD completados con PRs deployadas a producción
+- Pruebas unitarias con Vitest + Testing Library
 
 ---
 
