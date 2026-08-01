@@ -206,7 +206,7 @@ Todas las decisiones arquitectónicas y validaciones finales son supervisadas y 
 
 Spec Log no busca convertirse en una plataforma masiva de newsletters, sino en un sistema editorial técnico cuidadosamente diseñado alrededor de una idea simple:
 
-> documentar procesos reales de construcción de software con claridad, criterio técnico y consistencia visual.
+> Documentar procesos reales de construcción de software con claridad, criterio técnico y consistencia visual.
 
 #### El proyecto prioriza:
 
