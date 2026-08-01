@@ -5,7 +5,7 @@
 ## Spec Log
 
 <p>
-Sistema editorial técnico orientado al envío de newsletters personalizadas, diseñado para documentar procesos reales de desarrollo, arquitectura de software y evolución profesional utilizando IA como copiloto bajo un enfoque de Spec-Driven Development.
+Sistema editorial técnico orientado al envío de newsletters personalizadas, diseñado para documentar procesos reales de desarrollo, arquitectura de software y evolución profesional utilizando IA como copiloto bajo un enfoque de Spec Driven Development.
 </p>
 
 </div>
@@ -179,7 +179,7 @@ El proyecto sigue una arquitectura modular enfocada en reutilización de compone
 - Componentización
 - Reutilización de interfaces
 - Arquitectura modular
-- Spec-Driven Development
+- Spec Driven Development
 - Mobile First
 - Diseño editorial minimalista
 - Escalabilidad progresiva
