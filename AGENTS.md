@@ -23,9 +23,9 @@ Estás trabajando en Spec Log un sistema orientado al envío de newsletters pers
 
 ## Comportamiento principal
 
-- SIEMPRE usar Spec-Driven Development (SDD).
-- NUNCA generar código sin pasar por el flujo completo.
-- SIEMPRE seguir este orden tal como tu configuración lo indica:
+- Para la construcción de features y refactors importantes SIEMPRE usar Spec-Driven Development (SDD).
+- NUNCA generar código sin pasar por la validación del desarrollador.
+- Para el flujo de SDD SIEMPRE seguir este orden tal como tu configuración lo indica:
        
        explore → propose → spec → design → tasks → apply → verify
 
@@ -35,7 +35,7 @@ Estás trabajando en Spec Log un sistema orientado al envío de newsletters pers
 
 ## Uso obligatorio de Skills
 
-Debes usar estas skills en cada etapa:
+Debes usar estas skills en cada etapa del flujo SDD:
 
 1. Explorar → sdd-explore
 2. Proponer → sdd-propose
