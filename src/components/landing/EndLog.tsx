@@ -107,7 +107,7 @@ const PARAGRAPHS: ParagraphGroup[] = [
     lines: [
       [
         { text: ">", className: "endlog-prompt-orange" },
-        { text: " Solo se trata de tomar una pequeña desición:", className: "endlog-prompt-white" },
+        { text: " Solo se trata de tomar una pequeña decisión:", className: "endlog-prompt-white" },
       ],
     ],
     afterPauseMs: 2500,
