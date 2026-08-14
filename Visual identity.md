@@ -17,14 +17,21 @@ Algunas indicaciones a tener en cuenta:
 - Nosotros manejaremos el estilo de los comentarios como HTML o JS visualmente hablando:
 
 ```
-    <!---------------------- Historia ------------------------>
-    /*---------------------- Historia -----------------------*/
+<!---------------------- Historia ------------------------>
+
+/*---------------------- Historia -----------------------*/
+
 ```
 
 ### Bloque “REPLY”
 
 - Crearemos un bloque como el siguiente para nuestra plantilla:
-``` ↳ reply   cuéntame qué te gustaria leer aquí. ```
+
+```
+ ↳ reply   cuéntame qué te gustaria leer aquí.
+
+```
+
 - Nuestro diseño de bloques debe tener lo siguiente:
   - fondo naranja: #F95616
   - texto color negro carbon: #1F1F1F
@@ -34,7 +41,10 @@ Algunas indicaciones a tener en cuenta:
 
 - Nuestro footer debe incluir el siguiente comentario:
 
-    <!-- construyendo sistemas reales con IA -->
+```
+<!-- construyendo sistemas reales con IA -->
+
+```
 
 - Y debajo:
 
@@ -47,7 +57,7 @@ Para el body de todos nuestros emails debemos tener los siguientes colores:
 
 - Texto principal: #1F1F1F
 - Comentarios: #9ca3af
-- Identidad (reemplazo del rosa de referencia): #F95616
+- Identidad: #F95616
 - Header y Footer: #292C2E
 - Colores para los botones o circulos de la barra terminal: ° #FF5457 ° #FFC653 ° #56E75D
 
