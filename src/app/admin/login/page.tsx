@@ -4,6 +4,7 @@ import { useState, type FormEvent } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { auth } from "@/lib/firebase-client";
+import { mapLoginError } from "@/lib/firebase-errors";
 import "@/styles/admin-login.css";
 
 type FormState = {
@@ -54,12 +55,10 @@ export default function AdminLoginPage() {
       // Redirect to newsletters
       router.push("/admin/newsletters");
     } catch (err) {
-      const message =
-        err instanceof Error ? err.message : "Error inesperado. Intentalo de nuevo.";
       setState((prev) => ({
         ...prev,
         isSubmitting: false,
-        error: message,
+        error: mapLoginError(err),
       }));
     }
   }

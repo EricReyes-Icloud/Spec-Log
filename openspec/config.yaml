@@ -14,10 +14,15 @@ persistence:
   mode: openspec
 
 testing:
-  strict_tdd: false
-  reason: No test runner found — no jest/vitest/playwright in package.json, no test scripts defined, no testing config files
-  test_runner: none
+  strict_tdd: true
+  test_runner: vitest
+  test_command: "npx vitest run"
   coverage: none
+  notes: |
+    vitest ^4.1.9 with jsdom env, @vitejs/plugin-react, @/* alias (vitest.config.ts).
+    Testing libs: @testing-library/react, @testing-library/jest-dom, jsdom.
+    3 existing test files under src/**/__tests__.
+    Gap: no "test" script in package.json — use "npx vitest run" until one is added.
 
 rules:
   proposal:
@@ -32,12 +37,13 @@ rules:
     - Group by phase, use hierarchical numbering
     - Keep tasks completable in one session
   apply:
-    - Follow existing code patterns
-    tdd: false
-    test_command: ""
+    guidelines:
+      - Follow existing code patterns
+    tdd: true
+    test_command: "npx vitest run"
   verify:
-    test_command: ""
-    build_command: ""
+    test_command: "npx vitest run"
+    build_command: "next build"
     coverage_threshold: 0
   archive:
     - Warn before merging destructive deltas
