@@ -64,5 +64,7 @@ export async function proxy(
 
 export const config = {
   matcher: "/admin/:path*",
-  runtime: "nodejs",
+  // Next 16 Proxy ALWAYS runs on the Node.js runtime (its default) — a
+  // `runtime` config option is rejected at build time in proxy files, so the
+  // firebase-admin dynamic import below resolves against the Node runtime.
 };
