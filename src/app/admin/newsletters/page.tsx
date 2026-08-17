@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { signOut, onAuthStateChanged } from "firebase/auth";
+import { useState } from "react";
+import { signOut } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { auth } from "@/lib/firebase-client";
 import Link from "next/link";
@@ -10,20 +10,6 @@ import "@/styles/admin-editor.css";
 export default function AdminNewslettersPage() {
   const router = useRouter();
   const [isLoggingOut, setIsLoggingOut] = useState(false);
-
-  // Track Firebase auth state to restore session on page reload
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (!user) {
-        // No authenticated user in Firebase client — session cookie might still
-        // be valid at the middleware level, but the client SDK has no session.
-        // This can happen on initial load before Firebase restores from IndexedDB.
-        // Do nothing here — middleware handles unauthenticated access.
-      }
-    });
-
-    return () => unsubscribe();
-  }, []);
 
   async function handleLogout() {
     if (isLoggingOut) return;
